@@ -1,0 +1,7 @@
+
+^	php:S1192 "IDefine a constant instead of duplicating this literal "pro_date" 3 times.(ÉÁğá
+c	php:S1192"IDefine a constant instead of duplicating this literal "vil_num2" 4 times.(íÇ„Êúÿÿÿÿ
+c	php:S1192"IDefine a constant instead of duplicating this literal "vil_num1" 8 times.(íÇ„Êúÿÿÿÿ
+^	php:S1192 "IDefine a constant instead of duplicating this literal "pro_time" 3 times.(ÉÁğá
+_	php:S11923"JDefine a constant instead of duplicating this literal "direction" 4 times.(éêÒŠ
+_	php:S1192 "JDefine a constant instead of duplicating this literal "pro_place" 3 times.(ÉÁğá
