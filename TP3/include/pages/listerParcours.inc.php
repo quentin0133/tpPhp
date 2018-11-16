@@ -12,8 +12,8 @@
 	</tr>
 	<?php
 		foreach($listeParcours as $parcours) {
-			$ville1 = $managerVille->getVilleParcours($parcours->getVille1());
-			$ville2 = $managerVille->getVilleParcours($parcours->getVille2());
+			$ville1 = $managerVille->getVille($parcours->getVille1());
+			$ville2 = $managerVille->getVille($parcours->getVille2());
 		?>
 			<tr>
 				<td class="elementTableau"> <?php echo $parcours->getId(); ?> </td>

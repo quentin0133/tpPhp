@@ -94,7 +94,7 @@
 								}
 							}
 							if($estDouble) {
-								$villeDepartement = $managerVille->getVilleDepartement($departement->getIdVille());
+								$villeDepartement = $managerVille->getVille($departement->getIdVille());
 								echo $departement->getNom().' ('.$villeDepartement->getNom().')';
 							}
 							else {

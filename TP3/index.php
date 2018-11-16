@@ -4,6 +4,10 @@
 	require_once("include/autoLoad.inc.php");
 	require_once("include/header.inc.php");
 
+	// Constantes
+	$VILLE1_VILLE2 = 0;
+
+	// Init manager
 	$db = new Mypdo();
 	$managerVille = new VilleManager($db);
 	$managerParcours = new ParcoursManager($db);

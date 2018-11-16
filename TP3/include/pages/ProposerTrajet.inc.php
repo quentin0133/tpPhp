@@ -103,6 +103,9 @@
       if($parcours->getVille1() == $_SESSION['vil_num1'] && $parcours->getVille2() == $_POST['vil_num2']) {
         $parcoursSelectionner = $parcours;
       }
+      if($parcours->getVille1() == $_POST['vil_num2'] && $parcours->getVille2() == $_SESSION['vil_num1']) {
+        $parcoursSelectionner = $parcours;
+      }
     }
     $propose = new Propose(
       array('par_num' => $parcoursSelectionner->getId(),

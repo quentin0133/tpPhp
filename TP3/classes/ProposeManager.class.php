@@ -38,5 +38,15 @@ class ProposeManager{
 		return $listePropose;
 		$tabPropose->close();
 	}
+
+	public function getProposeParcours($idParcours) {
+		$r = 'SELECT par_num, per_num, pro_date, pro_time, pro_place, pro_sens FROM propose WHERE par_num = '.$idParcours;
+
+		$tabPropose = $this->db->query($r);
+		$proposeFetch = $tabPropose->fetch(PDO::FETCH_OBJ);
+		$propose = new Propose($proposeFetch);
+		return $propose;
+		$tabPropose->close();
+	}
 }
 ?>

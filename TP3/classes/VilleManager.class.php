@@ -27,18 +27,8 @@ class VilleManager{
 		$tabVille->close();
 	}
 
-	public function getVilleDepartement($idVilleParcours) {
-		$r = 'SELECT vil_num, vil_nom FROM ville WHERE vil_num = '.$idVilleParcours;
-
-		$tabVille = $this->db->query($r);
-		$villeFetch = $tabVille->fetch(PDO::FETCH_OBJ);
-		$ville = new Ville($villeFetch);
-		return $ville;
-		$tabVille->close();
-	}
-
-	public function getVilleParcours($idVilleParcours) {
-		$r = 'SELECT vil_num, vil_nom FROM ville WHERE vil_num = '.$idVilleParcours;
+	public function getVille($idVille) {
+		$r = 'SELECT vil_num, vil_nom FROM ville WHERE vil_num = '.$idVille;
 
 		$tabVille = $this->db->query($r);
 		$villeFetch = $tabVille->fetch(PDO::FETCH_OBJ);
