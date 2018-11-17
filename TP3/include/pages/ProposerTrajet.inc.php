@@ -19,22 +19,38 @@
       </option>
       <?php
         foreach($listeParcours as $parcours) {
-          $ville1 = $managerVille->getVilleParcours($parcours->getVille1());
-          for($i=0; $i <= $cpt; $i++) {
-            if($listeParcours[$i]->getVille1() == $parcours->getVille1()
-            && $listeParcours[$i]->getId() != $parcours->getId()) {
+          $ville1 = $managerVille->getVille($parcours->getVille1());
+          foreach ($listeBanVille as $banVille) {
+            if($banVille->getId() == $ville1->getId()) {
               $estDouble = true;
             }
           }
           if(!$estDouble) {
-          ?>
-            <option value='<?php echo $parcours->getVille1(); ?>'>
+            $listeBanVille[$cpt] = $ville1;
+            ?>
+            <option value='<?php echo $ville1->getId(); ?>'>
               <?php echo $ville1->getNom(); ?>
             </option>
-          <?php
+            <?php
+            $cpt++;
           }
           $estDouble = false;
-          $cpt++;
+          $ville2 = $managerVille->getVille($parcours->getVille2());
+          foreach ($listeBanVille as $banVille) {
+            if($banVille->getId() == $ville2->getId()) {
+              $estDouble = true;
+            }
+          }
+          if(!$estDouble) {
+            $listeBanVille[$cpt] = $ville2;
+            ?>
+            <option value='<?php echo $ville2->getId(); ?>'>
+              <?php echo $ville2->getNom(); ?>
+            </option>
+            <?php
+            $cpt++;
+          }
+          $estDouble = false;
         }
       ?>
       </select>
@@ -43,7 +59,7 @@
   }
   else if(!isset($_POST['vil_num2']) && !isset($_POST['pro_date']) && !isset($_POST['pro_time']) && !isset($_POST['pro_place'])) {
     $_SESSION['vil_num1'] = $_POST['vil_num1'];
-    $ville1 = $managerVille->getVilleParcours($_SESSION['vil_num1']);
+    $ville1 = $managerVille->getVille($_SESSION['vil_num1']);
     ?>
     <form action="#" method="post">
       <table>
@@ -58,11 +74,11 @@
               $listeParcoursBinomeVille = $managerParcours->getListPairVille($_SESSION['vil_num1']);
               foreach($listeParcoursBinomeVille as $parcours) {
                 if($parcours->getVille2() != $_SESSION['vil_num1']) {
-                  $ville2 = $managerVille->getVilleParcours($parcours->getVille2());
+                  $ville2 = $managerVille->getVille($parcours->getVille2());
                   $_SESSION['direction'] = 0;
                 }
                 else {
-                  $ville2 = $managerVille->getVilleParcours($parcours->getVille1());
+                  $ville2 = $managerVille->getVille($parcours->getVille1());
                   $_SESSION['direction'] = 1;
                 }
                 ?>

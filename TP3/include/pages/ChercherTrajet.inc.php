@@ -1,10 +1,9 @@
 <h1>Rechercher un trajet</h1>
 <?php
 $cpt = 0;
-$cpt2 = 0;
 $estDouble = false;
-$listeBanPropose;
 $listeBanParcours;
+$listeBanVille;
 $listePropose = $managerPropose->getList();
 if(!isset($_POST['vil_num1']) && !isset($_POST['vil_num2'])) {
   if(isset($_SESSION['vil_num1'])) {
@@ -23,32 +22,46 @@ if(!isset($_POST['vil_num1']) && !isset($_POST['vil_num2'])) {
       $parcours = $managerParcours->getParcours($propose->getIdParcours());
       $ville1 = $managerVille->getVille($parcours->getVille1());
       $ville2 = $managerVille->getVille($parcours->getVille2());
-      if(isset($listeBanPropose)) {
-        foreach ($listeBanPropose as $banPropose) {
-          // code...
+      if(isset($listeBanParcours)) {
+        foreach ($listeBanVille as $banVille) {
+          if($propose->getSens() == 0) {
+            if($banVille->getId() == $ville1->getId()) {
+              $estDouble = true;
+            }
+          }
+          else {
+            if($banVille->getId() == $ville2->getId()) {
+              $estDouble = true;
+            }
+          }
+        }
+        foreach ($listeBanParcours as $banParcours) {
+          if($banParcours->getId() == $parcours->getId()) {
+            $estDouble = true;
+          }
         }
       }
       if(!$estDouble) {
-        $listeBanPropose[$cpt2] = $propose;
-        $listeBanParcours[$cpt2] = $parcours;
-        if() {
+        $listeBanParcours[$cpt] = $parcours;
+        if($propose->getSens() == 0) {
         ?>
           <option value='<?php echo $ville1->getId() ?>'>
             <?php echo $ville1->getNom() ?>
           </option>
-        <?php
+          <?php
+          $listeBanVille[$cpt] = $ville1;
         }
         else {
         ?>
           <option value='<?php echo $ville2->getId() ?>'>
             <?php echo $ville2->getNom() ?>
           </option>
-        <?php
+          <?php
+          $listeBanVille[$cpt] = $ville2;
         }
-        $cpt2++;
+        $cpt++;
       }
       $estDouble = false;
-      $cpt++;
     }
     ?>
     </select>
