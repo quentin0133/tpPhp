@@ -2,18 +2,16 @@
 <?php
 $cpt = 0;
 $estDouble = false;
-$listeBanParcours;
-$listeBanVille;
 $listePropose = $managerPropose->getList();
-if(!isset($_POST['vil_num1']) && !isset($_POST['vil_num2'])) {
-  if(isset($_SESSION['vil_num1'])) {
-    unset($_SESSION['vil_num1']);
+if(!isset($_POST['vil_depart']) && !isset($_POST['vil_arrive'])) {
+  if(isset($_SESSION['vilvil_depart'])) {
+    unset($_SESSION['vil_depart']);
   }
   ?>
   <form action="#" method="post" id="proposer_parcours">
     <label>Ville de départ :</label>
       <br>
-    <select class="select" name="vil_num1" onChange='document.getElementById("proposer_parcours").submit()'>
+    <select class="select" name="vil_depart" onChange='document.getElementById("proposer_parcours").submit()'>
     <option value=0>
       Choissisez
     </option>
@@ -67,5 +65,65 @@ if(!isset($_POST['vil_num1']) && !isset($_POST['vil_num2'])) {
     </select>
   </form>
 <?php
+}
+else if(!isset($_POST['vil_arrive']) && !isset($_POST['date_depart'])
+&& !isset($_POST['precision']) && !isset($_POST['temp_depart'])) {
+  $_SESSION['vil_depart'] = $_POST['vil_depart'];
+  $villeDepart = $managerVille->getVille($_SESSION['vil_depart']);
+  ?>
+  <form action="#" method="post">
+    <table>
+      <tr>
+        <td class="formulaireProposerTrajet">
+          <label>Ville de départ : <?php echo $villeDepart->getNom();   ?></label>
+        </td>
+        <td class="labelAlign">
+          <label>Ville d'arrivée :</label>
+          <select class="select" name="vil_arrive">
+          <?php
+            $listeParcoursBinomeVille = $managerParcours->getListPairVille($_SESSION['vil_num1']);
+            foreach($listeParcoursBinomeVille as $parcours) {
+              if($parcours->getVille2() != $_SESSION['vil_num1']) {
+                $ville2 = $managerVille->getVille($parcours->getVille2());
+                $_SESSION['direction'] = 0;
+              }
+              else {
+                $ville2 = $managerVille->getVille($parcours->getVille1());
+                $_SESSION['direction'] = 1;
+              }
+              ?>
+              <option value='<?php echo $ville2->getId(); ?>'>
+                <?php echo $ville2->getNom(); ?>
+              </option>
+            <?php
+            }
+          ?>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Date de départ : </label>
+          <input type="date" name="date_depart" value="<?php echo date('Y') ?>-<?php echo date('m') ?>-<?php echo date('d') ?>" />
+        </td>
+        <td>
+          <label>Précision : </label>
+          <select class="select" name="precision">
+            <option>Ce jour</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>A partir de : </label>
+          <select class="select" name="temp_depart">
+            <option>Ce jour</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    <input type="submit" value="Valider" />
+  </form>
+  <?php
 }
 ?>

@@ -52,3 +52,4 @@ class Departement{
 		$this->idVille = $newIdVille;
 	}
 }
+?>

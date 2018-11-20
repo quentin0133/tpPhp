@@ -44,7 +44,7 @@
     $salarie = $managerSalarie->getSalariePersonne($_GET['id']);
     if($_GET['id'] == $etudiant->getIdPersonne()) {
       $departement = $managerDepartement->getDepartement($etudiant->getIdDepartement());
-      $ville = $managerVille->getVilleDepartement($departement->getIdVille());
+      $ville = $managerVille->getVille($departement->getIdVille());
       ?>
       <h1>Détail sur l'étudiant <?php echo $personne->getNom() ?></h1>
       <table class="collapseTableau">

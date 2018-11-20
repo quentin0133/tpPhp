@@ -9,11 +9,6 @@ switch ($page) {
 //
 // Personnes
 //
-
-case 0:
-	// inclure ici la page accueil photo
-	include_once('pages/accueil.inc.php');
-	break;
 	// page insertion nouveau client
 case 1:
 	// inclure ici la page insertion nouvelle personne
@@ -63,38 +58,38 @@ case 8:
 //
 case 9:
 	// inclure ici la page proposer trajet
-		
-		include_once('pages/ProposerTrajet.inc.php');		
+
+		include_once('pages/ProposerTrajet.inc.php');
     break;
 case 10:
 	// inclure ici la page rechercher trajet
-			
-		include_once('pages/ChercherTrajet.inc.php');		
-	
+
+		include_once('pages/ChercherTrajet.inc.php');
+
     break;
-    
+
 case 11:
 	// inclure ici la page de connexion
 	include_once('pages/Connexion.inc.php');
     break;
 
 case 12:
-	// inclure ici la page de déconnexion
+	// inclure ici la page de dï¿½connexion
 	include_once('pages/Deconnexion.inc.php');
     break;
-	
+
 case 13:
 	// inclure ici la page de confirmation d'une ajout d'une ville
 	include_once('pages/confirmationAjoutVilles.inc.php');
     break;
- 	
+
 case 14:
 	// inclure ici la page de confirmation d'une ajout d'un parcours
 	include_once('pages/confirmationAjoutParcours.inc.php');
-    break; 	
-     	
+    break;
+
 default : 	include_once('pages/accueil.inc.php');
 }
-	
+
 ?>
 </div>

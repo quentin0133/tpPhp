@@ -125,8 +125,8 @@
 			$etudiant = new Etudiant(
 				array(
 						'per_num' => $db->lastInsertId(),
-						'dep_num' => $_POST['anneeEtudiant'],
-					  'div_num' => $_POST['departementEtudiant']
+						'dep_num' => $_POST['departementEtudiant'],
+					  'div_num' => $_POST['anneeEtudiant']
 				)
 			);
 			$managerEtudiant->add($etudiant);

@@ -42,3 +42,4 @@ class DepartementManager{
 		$tabDepartement->close();
 	}
 }
+?>
