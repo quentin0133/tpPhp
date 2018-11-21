@@ -2,7 +2,7 @@
 
 
 	$listePersonne = $managerPersonne->getList();
-
+    $managerAvis = new AvisManager($db);
 	if(empty($_POST['per_num1'])) {
 		?>
 		<h1>Supprimer une personne</h1>
@@ -29,6 +29,7 @@
 	}else{
 	    echo $_POST['per_num1'];
 	    $DelPropose=$managerPropose->delProposeParcours($_POST['per_num']);
+	    $DelAvis = $managerAvis->delAvis($_POST['per_num']);
 
     }
 
