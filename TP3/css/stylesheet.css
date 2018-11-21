@@ -272,3 +272,12 @@ table {
 #captcha {
 	font-size: 40px;
 }
+
+#connect p {
+	margin-top:5px;
+}
+
+#connect p a {
+    margin-right:20px;
+}
+
