@@ -28,40 +28,64 @@ class Avis{
                 case 'comm':
                     $this->setComm($value);
                     break;
-                case 'dep_nom':
-                    $this->setNom($value);
+                case 'note':
+                    $this->setNote($value);
                     break;
-                case 'vil_num':
-                    $this->setIdVille($value);
+                case 'date':
+                    $this->setDate($value);
                     break;
 			}
 		}
 	}
 
 // get ----------------------------
-	public function getId() {
-		return $this->id;
+	public function getIdPer() {
+		return $this->idPer;
 	}
 
-	public function getNom() {
-		return $this->nom;
+	public function getIdPer_per() {
+		return $this->idPer_per;
 	}
 
-	public function getIdVille() {
-		return $this->idVille;
+	public function getIdParcours() {
+		return $this->idParcours;
 	}
+
+    public function getComm() {
+        return $this->comm;
+    }
+
+    public function getNote() {
+        return $this->note;
+    }
+
+    public function getDate() {
+        return $this->date;
+    }
 
 // set ----------------------------
-	public function setId($newId) {
-		$this->id = $newId;
+	public function setIdPer($idPer) {
+		$this->idPer = $idPer;
 	}
 
-	public function setNom($newNom) {
-		$this->nom = $newNom;
+	public function setIdPer_per($idPer_per) {
+		$this->idPer_per = $idPer_per;
 	}
 
-	public function setIdVille($newIdVille) {
-		$this->idVille = $newIdVille;
+	public function setIdParcours($idParcours) {
+		$this->idParcours = $idParcours;
 	}
+
+    public function setComm($comm) {
+        $this->comm = $comm;
+    }
+
+    public function setNote($note) {
+        $this->note = $note;
+    }
+
+    public function setDate($date) {
+        $this->date = $date;
+    }
 }
 ?>
