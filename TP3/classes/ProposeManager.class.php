@@ -48,5 +48,12 @@ class ProposeManager{
 		return $propose;
 		$tabPropose->close();
 	}
+
+	public function delProposeParcours($idPersonne){
+        $r = $this->db->prepare(
+            'DELETE FROM propose WHERE per_num = '.$idPersonne
+        );
+        $r->execute();
+	}
 }
 ?>

@@ -33,7 +33,7 @@
         <div id="connect">
           <p>
             Utilisateur : <a href="index.php?page=13"><?php echo $_SESSION['estConnecte']->getPrenom(); ?></a>
-            <a href="index.php?page=12">Déconnexion</a>
+            <a href="index.php?page=12">  Déconnexion</a>
           </p>
         </div>
       <?php
