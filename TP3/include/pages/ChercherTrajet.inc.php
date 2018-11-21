@@ -81,9 +81,9 @@ else if(!isset($_POST['vil_arrive']) && !isset($_POST['date_depart'])
           <label>Ville d'arrivée :</label>
           <select class="select" name="vil_arrive">
           <?php
-            $listeParcoursBinomeVille = $managerParcours->getListPairVille($_SESSION['vil_num1']);
+            $listeParcoursBinomeVille = $managerParcours->getListPairVille($_SESSION['vil_depart']);
             foreach($listeParcoursBinomeVille as $parcours) {
-              if($parcours->getVille2() != $_SESSION['vil_num1']) {
+              if($parcours->getVille2() != $_SESSION['vil_depart']) {
                 $ville2 = $managerVille->getVille($parcours->getVille2());
                 $_SESSION['direction'] = 0;
               }
