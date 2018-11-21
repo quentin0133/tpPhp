@@ -22,7 +22,7 @@ class PersonneManager{
 			PDO::PARAM_STR);
 		$r->bindValue(':mdp', $personne->getMdp(),
 			PDO::PARAM_STR);
-			
+
 		$r->execute();
 	}
 

@@ -1,7 +1,5 @@
 <h1>Proposer un trajet</h1>
 <?php
-  $estDouble = false;
-  $cpt = 0;
   $date = date("d/m/Y");
   $heure = date("H:i:s");
   $listeParcours = $managerParcours->getList();
@@ -19,21 +17,24 @@
       </option>
       <?php
         foreach($listeParcours as $parcours) {
+          $estDouble = false;
           $ville1 = $managerVille->getVille($parcours->getVille1());
+
           foreach ($listeBanVille as $banVille) {
             if($banVille->getId() == $ville1->getId()) {
               $estDouble = true;
             }
           }
+
           if(!$estDouble) {
-            $listeBanVille[$cpt] = $ville1;
+            $listeBanVille[] = $ville1;
             ?>
             <option value='<?php echo $ville1->getId(); ?>'>
               <?php echo $ville1->getNom(); ?>
             </option>
             <?php
-            $cpt++;
           }
+
           $estDouble = false;
           $ville2 = $managerVille->getVille($parcours->getVille2());
           foreach ($listeBanVille as $banVille) {
@@ -41,23 +42,23 @@
               $estDouble = true;
             }
           }
+
           if(!$estDouble) {
-            $listeBanVille[$cpt] = $ville2;
+            $listeBanVille[] = $ville2;
             ?>
             <option value='<?php echo $ville2->getId(); ?>'>
               <?php echo $ville2->getNom(); ?>
             </option>
             <?php
-            $cpt++;
           }
-          $estDouble = false;
+
         }
       ?>
       </select>
     </form>
   <?php
   }
-  else if(!isset($_POST['vil_num2']) && !isset($_POST['pro_date']) && !isset($_POST['pro_time']) && !isset($_POST['pro_place'])) {
+  else if(empty($_POST['vil_num2']) && empty($_POST['pro_date']) && empty($_POST['pro_time']) && empty($_POST['pro_place'])) {
     $_SESSION['vil_num1'] = $_POST['vil_num1'];
     $ville1 = $managerVille->getVille($_SESSION['vil_num1']);
     ?>
