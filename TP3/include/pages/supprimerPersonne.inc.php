@@ -2,7 +2,7 @@
 
 
 	$listePersonne = $managerPersonne->getList();
-    $managerAvis = new AvisManager($db);
+
 	if(empty($_POST['per_num1'])) {
 		?>
 		<h1>Supprimer une personne</h1>
@@ -27,10 +27,21 @@
 		</form>
 		<?php
 	}else{
-	    echo $_POST['per_num1'];
-	    $DelPropose=$managerPropose->delProposeParcours($_POST['per_num']);
-	    $DelAvis = $managerAvis->delAvis($_POST['per_num']);
 
+	    $DelPropose=$managerPropose->delProposeParcours($_POST['per_num1']);
+	    $DelAvis = $managerAvis->delAvis($_POST['per_num1']);
+	    $DelSalarie = $managerSalarie->delSalarie($_POST['per_num1']);
+	    $DelEtudiant = $managerEtudiant->delEtudiant($_POST['per_num1']);
+
+        $Personne=$managerPersonne->getPersonne($_POST['per_num']);
+        ?>
+
+        <p>
+            <img src="image/valid.png" />
+            La personne "<b><?php echo strtoupper($Personne->getNom())." ".$Personne->getPrenom() ; ?></b>" a été ajouté
+        </p>
+
+<?php
     }
 
 ?>

@@ -9,7 +9,7 @@ class AvisManager{
 
     public function delAvis($idPersonne){
         $r = $this->db->prepare(
-            'DELETE FROM propose WHERE per_num = '.$idPersonne.' OR per_per_num ='.$idPersonne
+            'DELETE FROM avis WHERE per_num = '.$idPersonne.' OR per_per_num ='.$idPersonne
         );
         $r->execute();
     }
