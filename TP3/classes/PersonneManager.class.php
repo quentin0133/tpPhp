@@ -47,4 +47,11 @@ class PersonneManager{
 		return $personne;
 		$tabPersonne->close();
 	}
+
+    public function delPersonne($idPersonne){
+        $r = $this->db->prepare(
+            'DELETE FROM personne WHERE per_num = '.$idPersonne
+        );
+        $r->execute();
+    }
 }

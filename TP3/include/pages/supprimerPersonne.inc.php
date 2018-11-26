@@ -28,17 +28,20 @@
 		<?php
 	}else{
 
+        $res = $managerPersonne->getPersonne($_POST['per_num1']);
+
+
 	    $DelPropose=$managerPropose->delProposeParcours($_POST['per_num1']);
 	    $DelAvis = $managerAvis->delAvis($_POST['per_num1']);
 	    $DelSalarie = $managerSalarie->delSalarie($_POST['per_num1']);
 	    $DelEtudiant = $managerEtudiant->delEtudiant($_POST['per_num1']);
 
-        $Personne=$managerPersonne->getPersonne($_POST['per_num']);
+        $Personne=$managerPersonne->delPersonne($_POST['per_num1']);
         ?>
 
         <p>
             <img src="image/valid.png" />
-            La personne "<b><?php echo strtoupper($Personne->getNom())." ".$Personne->getPrenom() ; ?></b>" a été ajouté
+            La personne <b> <?php echo $res->getNom().$res->getPrenom() ;?></b> a été supprimé
         </p>
 
 <?php
