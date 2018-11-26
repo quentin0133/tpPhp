@@ -14,11 +14,12 @@
 			<?php
 
 				foreach($listePersonne as $personne) {
-				?>
-					<option value='<?php echo $personne->getId(); ?>'>
-						<?php echo strtoupper($personne->getNom()); ?>  <?php echo $personne->getPrenom(); ?>
-					</option>
-				<?php
+				    if($_SESSION['estConnecte'] != $personne){  ?>
+                        <option value='<?php echo $personne->getId(); ?>'>
+
+                            <?php echo strtoupper($personne->getNom()); ?>  <?php echo $personne->getPrenom(); ?>
+                        </option>
+				<?php }
 				}
 			?>
             </select>
@@ -41,7 +42,7 @@
 
         <p>
             <img src="image/valid.png" />
-            La personne <b> <?php echo $res->getNom().$res->getPrenom() ;?></b> a été supprimé
+            La personne <b> <?php echo strtoupper($res->getNom()).$res->getPrenom() ;?></b> a été supprimé
         </p>
 
 <?php

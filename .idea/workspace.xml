@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="43d0c564-ebeb-4414-80d3-8c0c287f83c1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP3/classes/PersonneManager.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/TP3/classes/PersonneManager.class.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TP3/include/pages/supprimerPersonne.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/TP3/include/pages/supprimerPersonne.inc.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -58,29 +57,29 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="2" />
-          <entry key="php" value="32" />
+          <entry key="php" value="33" />
           <entry key="sql" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="2" />
-          <entry key="PHP" value="32" />
+          <entry key="PHP" value="33" />
           <entry key="SQL" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="58" />
-          <entry key="php" value="1141" />
-          <entry key="txt" value="141" />
+          <entry key="php" value="1199" />
+          <entry key="txt" value="248" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="58" />
-          <entry key="PHP" value="1141" />
-          <entry key="PLAIN_TEXT" value="141" />
+          <entry key="PHP" value="1199" />
+          <entry key="PLAIN_TEXT" value="248" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages">
@@ -115,8 +114,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TP3/include/pages/supprimerPersonne.inc.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="38" column="68" lean-forward="true" selection-start-line="38" selection-start-column="68" selection-end-line="38" selection-end-column="68" />
+            <state relative-caret-position="527">
+              <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TP3/include/header.inc.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="34" column="102" selection-start-line="34" selection-start-column="65" selection-end-line="34" selection-end-column="102" />
             </state>
           </provider>
         </entry>
@@ -302,7 +310,7 @@
       <workItem from="1542547382273" duration="58000" />
       <workItem from="1542792280368" duration="7385000" />
       <workItem from="1542873479048" duration="1478000" />
-      <workItem from="1543217832939" duration="1089000" />
+      <workItem from="1543217832939" duration="1486000" />
     </task>
     <task id="LOCAL-00001" summary="supprimerPersonne incomplet">
       <created>1542794990569</created>
@@ -332,11 +340,18 @@
       <option name="project" value="LOCAL" />
       <updated>1542796807156</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Fin supprimer personne completement, manque a verifier de ne pas supprimer la personne déja connecté">
+      <created>1543218999240</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1543218999240</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12704000" />
+    <option name="totallyTimeSpent" value="13101000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -417,7 +432,8 @@
     <MESSAGE value="ajout class et manager avis" />
     <MESSAGE value="fin ajout delete avis par idPersonne" />
     <MESSAGE value="delete avis dans supprimer personne" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete avis dans supprimer personne" />
+    <MESSAGE value="Fin supprimer personne completement, manque a verifier de ne pas supprimer la personne déja connecté" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fin supprimer personne completement, manque a verifier de ne pas supprimer la personne déja connecté" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/TP3/classes/DivisionManager.class.php">
@@ -466,13 +482,6 @@
     <entry file="file://$PROJECT_DIR$/TP3/include/pages/Connexion.inc.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1989" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TP3/include/header.inc.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="35" column="42" selection-start-line="35" selection-start-column="42" selection-end-line="35" selection-end-column="42" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TP3/include/pages/ajouterParcours.inc.php">
@@ -572,10 +581,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/TP3/include/header.inc.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="34" column="102" selection-start-line="34" selection-start-column="65" selection-end-line="34" selection-end-column="102" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/TP3/include/pages/supprimerPersonne.inc.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="38" column="68" lean-forward="true" selection-start-line="38" selection-start-column="68" selection-end-line="38" selection-end-column="68" />
+        <state relative-caret-position="527">
+          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
         </state>
       </provider>
     </entry>
