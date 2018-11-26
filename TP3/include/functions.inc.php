@@ -10,4 +10,9 @@
 		$date = $membres[2].'-'.$membres[1].'-'.(intval($membres[0])+$nbJours);
 		return $date;
 	}
+
+	function getFrenchDate($date) {
+		$membres = explode('-', $date);
+		return $membres[2].'/'.$membres[1].'/'.$membres[0];
+	}
 ?>

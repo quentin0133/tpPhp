@@ -29,31 +29,53 @@ class ProposeManager{
 
 	public function getList() {
 		$listePropose = array();
-		$r = 'SELECT par_num, per_num, pro_date, pro_time, pro_place, pro_sens FROM propose';
+		$r = $this->db->prepare(
+			'SELECT par_num, per_num, pro_date, pro_time, pro_place, pro_sens FROM propose'
+		);
 
-		$tabPropose = $this->db->query($r);
-		while($propose = $tabPropose->fetch(PDO::FETCH_OBJ)) {
+		$r->execute();
+		while($propose = $r->fetch(PDO::FETCH_OBJ)) {
 			$listePropose[] = new Propose($propose);
 		}
 		return $listePropose;
-		$tabPropose->close();
 	}
 
 	public function getProposeParcours($idParcours) {
-		$r = 'SELECT par_num, per_num, pro_date, pro_time, pro_place, pro_sens FROM propose WHERE par_num = '.$idParcours;
+		$r = $this->db->prepare(
+			'SELECT par_num, per_num, pro_date, pro_time, pro_place, pro_sens FROM propose
+			WHERE par_num = :idParcours'
+		);
+		$r->bindValue(':idParcours', $idParcours,
+			PDO::PARAM_INT);
 
-		$tabPropose = $this->db->query($r);
-		$proposeFetch = $tabPropose->fetch(PDO::FETCH_OBJ);
-		$propose = new Propose($proposeFetch);
-		return $propose;
-		$tabPropose->close();
+		$r->execute();
+		$proposeFetch = $r->fetch(PDO::FETCH_OBJ);
+		return new Propose($proposeFetch);
+	}
+
+	public function getDateBetween($dateBegin, $dateEnd) {
+		$r = $this->db->prepare(
+			'SELECT par_num, per_num, pro_date, pro_time, pro_place, pro_sens FROM propose
+			WHERE pro_date BETWEEN :dateBegin AND :dateEnd'
+		);
+		$r->bindValue(':dateBegin', $dateBegin,
+			PDO::PARAM_INT);
+		$r->bindValue(':dateEnd', $dateEnd,
+			PDO::PARAM_INT);
+
+		$r->execute();
+		$proposeFetch = $r->fetch(PDO::FETCH_OBJ);
+		return new Propose($proposeFetch);
 	}
 
 	public function delProposeParcours($idPersonne){
-        $r = $this->db->prepare(
-            'DELETE FROM propose WHERE per_num = '.$idPersonne
-        );
-        $r->execute();
+    $r = $this->db->prepare(
+      'DELETE FROM propose WHERE per_num = :idPersonne'
+    );
+		$r->bindValue(':idPersonne', $idPersonne,
+			PDO::PARAM_INT);
+
+    $r->execute();
 	}
 }
 ?>
