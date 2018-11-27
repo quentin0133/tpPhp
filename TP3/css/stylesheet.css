@@ -269,10 +269,23 @@ table {
 	height: 25px;
   width: 200px;
 }
+
+.elementTableau2 {
+  border: 1px solid black;
+	height: 25px;
+  width: 150px;
+}
+
 #captcha {
 	font-size: 40px;
 }
 
 #connect p {
 	margin-top:5px;
+}
+
+#avis {
+	text-decoration: underline;
+	color: blue;
+	cursor: default;
 }

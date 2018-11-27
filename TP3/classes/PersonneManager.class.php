@@ -28,7 +28,7 @@ class PersonneManager{
 
 	public function getList() {
 		$listePersonne = array();
-		$r = 'SELECT per_num, per_nom, per_prenom, per_tel, per_mail, per_login, per_pwd FROM personne';
+		$r = 'SELECT * FROM personne';
 
 		$tabPersonne = $this->db->query($r);
 		while($personne = $tabPersonne->fetch(PDO::FETCH_OBJ)) {
@@ -39,7 +39,7 @@ class PersonneManager{
 	}
 
 	public function getPersonne($id) {
-		$r = 'SELECT per_nom, per_prenom, per_tel, per_mail, per_mail, per_login, per_pwd FROM personne WHERE per_num = '.$id;
+		$r = 'SELECT * FROM personne WHERE per_num = '.$id;
 
 		$tabPersonne = $this->db->query($r);
 		$personneFetch = $tabPersonne->fetch(PDO::FETCH_OBJ);

@@ -100,8 +100,7 @@
           <td>
             <label>Heure de départ : </label>
             <input type="time" name="pro_time" value="<?php echo date('H') ?>:<?php echo date('i') ?>:<?php echo date('s') ?>"
-            step="0.1"
-            />
+            step="any" />
           </td>
         </tr>
         <tr>

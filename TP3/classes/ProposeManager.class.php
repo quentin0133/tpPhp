@@ -30,7 +30,7 @@ class ProposeManager{
 	public function getList() {
 		$listePropose = array();
 		$r = $this->db->prepare(
-			'SELECT par_num, per_num, pro_date, pro_time, pro_place, pro_sens FROM propose'
+			'SELECT * FROM propose'
 		);
 
 		$r->execute();
@@ -42,7 +42,7 @@ class ProposeManager{
 
 	public function getProposeParcours($idParcours) {
 		$r = $this->db->prepare(
-			'SELECT par_num, per_num, pro_date, pro_time, pro_place, pro_sens FROM propose
+			'SELECT * FROM propose
 			WHERE par_num = :idParcours'
 		);
 		$r->bindValue(':idParcours', $idParcours,
@@ -53,19 +53,23 @@ class ProposeManager{
 		return new Propose($proposeFetch);
 	}
 
-	public function getDateBetween($dateBegin, $dateEnd) {
+	public function getProposeAroundDate($date, $precision) {
+		$listePropose = array();
 		$r = $this->db->prepare(
-			'SELECT par_num, per_num, pro_date, pro_time, pro_place, pro_sens FROM propose
-			WHERE pro_date BETWEEN :dateBegin AND :dateEnd'
+			'SELECT * FROM propose
+			 WHERE :date BETWEEN SUBDATE(pro_date, :precision)
+			 AND ADDDATE(pro_date, :precision)'
 		);
-		$r->bindValue(':dateBegin', $dateBegin,
-			PDO::PARAM_INT);
-		$r->bindValue(':dateEnd', $dateEnd,
+		$r->bindValue(':date', $date,
+			PDO::PARAM_STR);
+		$r->bindValue(':precision', $precision,
 			PDO::PARAM_INT);
 
 		$r->execute();
-		$proposeFetch = $r->fetch(PDO::FETCH_OBJ);
-		return new Propose($proposeFetch);
+		while($propose = $r->fetch(PDO::FETCH_OBJ)) {
+			$listePropose[] = new Propose($propose);
+		}
+		return $listePropose;
 	}
 
 	public function delProposeParcours($idPersonne){
