@@ -54,4 +54,13 @@ class PersonneManager{
         );
         $r->execute();
     }
+
+    public function modifPers($nom,$prenom,$mail,$tel,$login,$pwd,$id){
+	    $r = $this->db->prepare(
+            'UPDATE personne SET per_nom = '.$nom.', per_prenom = '.$prenom.',per_mail = '.$mail.
+            ',per_tel = '.$tel.',per_login = '.$login.',per_pwd = '.$pwd.' WHERE per_num = '.$id
+        );
+	    $r->execute();
+    }
 }
+
