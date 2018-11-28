@@ -284,8 +284,7 @@ table {
 	margin-top:5px;
 }
 
-#avis {
+.elementTableau2 a {
 	text-decoration: underline;
 	color: blue;
-	cursor: default;
 }

@@ -2,7 +2,7 @@
 <?php
 $estDouble = false;
 $listePropose = $managerPropose->getList();
-if(!isset($_POST['vil_depart']) && !isset($_POST['vil_arrive'])) {
+if(!isset($_POST['vil_depart']) && !isset($_POST['vil_arrive']) && !isset($_GET['id'])) {
   if(isset($_SESSION['vilvil_depart'])) {
     unset($_SESSION['vil_depart']);
   }
@@ -65,7 +65,7 @@ if(!isset($_POST['vil_depart']) && !isset($_POST['vil_arrive'])) {
 <?php
 }
 else if(!isset($_POST['vil_arrive']) && !isset($_POST['date'])
-&& !isset($_POST['precision']) && !isset($_POST['temp_depart'])) {
+&& !isset($_POST['precision']) && !isset($_POST['temp_depart']) && !isset($_GET['id'])) {
   $_SESSION['vil_depart'] = $_POST['vil_depart'];
   $villeDepart = $managerVille->getVille($_SESSION['vil_depart']);
   ?>
@@ -135,7 +135,7 @@ else if(!isset($_POST['vil_arrive']) && !isset($_POST['date'])
   </form>
 <?php
 }
-else {
+else if(!isset($_GET['id'])) {
   $listePropose = $managerPropose->getProposeAroundDate($_POST['date'], $_POST['precision']);
   foreach ($listePropose as $propose) {
     $parcours = $managerParcours->getParcours($propose->getIdParcours());
@@ -212,17 +212,23 @@ else {
           <td class="elementTableau2">
             <?php echo $proposeAfficher->getPlace(); ?>
           </td>
-          <td class="elementTableau2"
           <?php
           if(!empty($listeAvis)) {
           ?>
-            id="avis"
-            title="Moyenne des avis : <?php echo $moyenneNote ?> Dernier avis : <?php echo $dernierCommentaire ?>"
+            <td class="elementTableau2"
+            title="Moyenne des avis : <?php echo $moyenneNote ?> Dernier avis : <?php echo $dernierCommentaire ?>">
+              <a href="index.php?page=10&id=<?php echo $personne->getId() ?>"><?php echo $personne->getPrenom().' '.$personne->getNom(); ?></a>
+            </td>
+          <?php
+          }
+          else {
+          ?>
+            <td class="elementTableau2" title="Aucun avis n'a été trouvé">
+              <a href="index.php?page=10&id=-1"><?php echo $personne->getPrenom().' '.$personne->getNom(); ?></a>
+            </td>
           <?php
           }
           ?>
-          >
-            <?php echo $personne->getPrenom().' '.$personne->getNom(); ?>
           </td>
         </tr>
       <?php
@@ -239,5 +245,8 @@ else {
     </p>
   <?php
   }
+}
+else {
+  echo "salut";
 }
 ?>
