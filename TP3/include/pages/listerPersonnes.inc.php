@@ -21,7 +21,7 @@
         ?>
     		<tr>
     			<td class="elementTableau">
-            <a href='index.php?page=2&id=<?php echo $personne->getId() ?>'>
+            <a href="index.php?page=2&id=<?php echo $personne->getId() ?>">
               <?php echo $personne->getId() ?>
             </a>
     			</td>

@@ -32,12 +32,11 @@ class PersonneManager{
 			'SELECT * FROM personne'
 		);
 
-		$tabPersonne = $this->db->query($r);
-		while($personne = $tabPersonne->fetch(PDO::FETCH_OBJ)) {
+		$r->execute();
+		while($personne = $r->fetch(PDO::FETCH_OBJ)) {
 			$listePersonne[] = new Personne($personne);
 		}
 		return $listePersonne;
-		$tabPersonne->close();
 	}
 
 	public function getPersonne($idPersonne) {
@@ -51,4 +50,37 @@ class PersonneManager{
 		$personneFetch = $r->fetch(PDO::FETCH_OBJ);
 		return new Personne($personneFetch);
 	}
+
+	public function delPersonne($idPersonne){
+		$r = $this->db->prepare(
+			'DELETE FROM personne WHERE per_num = :idPersonne'
+		);
+		$r->bindValue(':idPersonne', $idPersonne,
+			PDO::PARAM_INT);
+
+		$r->execute();
+	}
+
+  public function modifPers($nom,$prenom,$mail,$tel,$login,$pwd,$id){
+    $r = $this->db->prepare(
+        'UPDATE personne SET per_nom = :nom, per_prenom = :prenom, per_mail = :mail,
+				per_tel = :tel, per_login = :login, per_pwd = :pwd WHERE per_num = :id'
+    );
+		$r->bindValue(':nom', $nom,
+			PDO::PARAM_STR);
+		$r->bindValue(':prenom', $prenom,
+			PDO::PARAM_STR);
+		$r->bindValue(':mail', $mail,
+			PDO::PARAM_STR);
+		$r->bindValue(':tel', $tel,
+			PDO::PARAM_STR);
+      $r->bindValue(':login', $login,
+          PDO::PARAM_STR);
+      $r->bindValue(':pwd', $pwd,
+          PDO::PARAM_STR);
+      $r->bindValue(':id', $id,
+          PDO::PARAM_INT);
+
+    $r->execute();
+  }
 }

@@ -23,7 +23,7 @@ class FonctionManager{
 		);
 
 		$r->execute();
-		while($fonction = $tabFonction->fetch(PDO::FETCH_OBJ)) {
+		while($fonction = $r->fetch(PDO::FETCH_OBJ)) {
 			$listeFonction[] = new Fonction($fonction);
 		}
 		return $listeFonction;

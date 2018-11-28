@@ -22,6 +22,16 @@
     $result=(int)($a / $b);
     if (strlen($result)==$precision) return '0.' . $result;
     else return preg_replace('/(\d{' . $precision . '})$/', '.\1', $result);
+<<<<<<< HEAD
 }
 
+=======
+	}
+
+	function isEmptyPersonne($array) {
+		return (empty($_POST['per_nom']) || empty($_POST['per_prenom']) || empty($_POST['per_tel'])
+		|| empty($_POST['per_mail']) || empty($_POST['per_login'])  || empty($_POST['per_pwd'])
+		|| empty($_POST['typePersonne']))
+	}
+>>>>>>> master
 ?>

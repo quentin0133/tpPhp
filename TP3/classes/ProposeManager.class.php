@@ -72,7 +72,7 @@ class ProposeManager{
 		return $listePropose;
 	}
 
-	public function delProposeParcours($idPersonne){
+	public function delProposePersonne($idPersonne){
     $r = $this->db->prepare(
       'DELETE FROM propose WHERE per_num = :idPersonne'
     );

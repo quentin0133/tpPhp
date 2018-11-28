@@ -1,8 +1,6 @@
 <!-- Mettre l'objet personne dans la SESSION -->
 <?php
-	if((empty($_POST['per_nom']) || empty($_POST['per_prenom']) || empty($_POST['per_tel'])
-	|| empty($_POST['per_mail']) || empty($_POST['per_login'])  || empty($_POST['per_pwd'])
-	|| empty($_POST['typePersonne'])) && (!isset($_POST['departementEtudiant'])
+	if(isEmptyPersonne() && (!isset($_POST['departementEtudiant'])
 	&& !isset($_POST['fonctionSalarie']))) {
 		if(isset($_SESSION['typePersonne'])) {
 			unset($_SESSION['typePersonne']);

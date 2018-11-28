@@ -1,8 +1,12 @@
-<h1>Rechercher un trajet</h1>
 <?php
+if(!isset($_GET['id'])) {
+?>
+  <h1>Rechercher un trajet</h1>
+<?php
+}
 $estDouble = false;
 $listePropose = $managerPropose->getList();
-if(!isset($_POST['vil_depart']) && !isset($_POST['vil_arrive'])) {
+if(!isset($_POST['vil_depart']) && !isset($_POST['vil_arrive']) && !isset($_GET['id'])) {
   if(isset($_SESSION['vilvil_depart'])) {
     unset($_SESSION['vil_depart']);
   }
@@ -64,18 +68,18 @@ if(!isset($_POST['vil_depart']) && !isset($_POST['vil_arrive'])) {
   </form>
 <?php
 }
-else if(!isset($_POST['vil_arrive']) && !isset($_POST['date'])
-&& !isset($_POST['precision']) && !isset($_POST['temp_depart'])) {
+else if(empty($_POST['date']) && empty($_POST['precision'])
+&& empty($_POST['temp_depart']) && !isset($_GET['id'])) {
   $_SESSION['vil_depart'] = $_POST['vil_depart'];
   $villeDepart = $managerVille->getVille($_SESSION['vil_depart']);
   ?>
   <form action="#" method="post">
     <table>
       <tr>
-        <td class="formulaireProposerTrajet">
-          <label>Ville de départ : <?php echo $villeDepart->getNom();   ?></label>
+        <td class="formulaireGauche">
+          <label>Ville de départ : <?php echo $villeDepart->getNom(); ?></label>
         </td>
-        <td class="labelAlign">
+        <td class="formulaireDroite">
           <label>Ville d'arrivée :</label>
           <select class="select" name="vil_arrive">
           <?php
@@ -135,7 +139,7 @@ else if(!isset($_POST['vil_arrive']) && !isset($_POST['date'])
   </form>
 <?php
 }
-else {
+else if(!isset($_GET['id'])) {
   $listePropose = $managerPropose->getProposeAroundDate($_POST['date'], $_POST['precision']);
   foreach ($listePropose as $propose) {
     $parcours = $managerParcours->getParcours($propose->getIdParcours());
@@ -212,17 +216,23 @@ else {
           <td class="elementTableau2">
             <?php echo $proposeAfficher->getPlace(); ?>
           </td>
-          <td class="elementTableau2"
           <?php
           if(!empty($listeAvis)) {
           ?>
-            id="avis"
-            title="Moyenne des avis : <?php echo $moyenneNote ?> Dernier avis : <?php echo $dernierCommentaire ?>"
+            <td class="elementTableau2"
+            title="Moyenne des avis : <?php echo $moyenneNote ?> Dernier avis : <?php echo $dernierCommentaire ?>">
+              <a href="index.php?page=10&id=<?php echo $personne->getId() ?>"><?php echo $personne->getPrenom().' '.$personne->getNom(); ?></a>
+            </td>
+          <?php
+          }
+          else {
+          ?>
+            <td class="elementTableau2" title="Aucun avis n'a été trouvé">
+              <a href="index.php?page=10&id=-1"><?php echo $personne->getPrenom().' '.$personne->getNom(); ?></a>
+            </td>
           <?php
           }
           ?>
-          >
-            <?php echo $personne->getPrenom().' '.$personne->getNom(); ?>
           </td>
         </tr>
       <?php
@@ -238,6 +248,77 @@ else {
       Désolé, aucun trajet n'a été trouvé !
     </p>
   <?php
+  }
+}
+else {
+  $personne = $managerPersonne->getPersonne($_GET['id']);
+  $listeAvis = $managerAvis->getAvis($_GET['id']);
+  ?>
+  <h1>Profile de <?php echo strtoupper($personne->getNom()).' '.$personne->getPrenom(); ?></h1>
+  <?php
+  if(empty($listeAvis)) {
+  ?>
+    <p>
+      <img src="image/erreur.png" />
+      Aucun avis n'a été trouvé.
+    </p>
+  <?php
+  }
+  else {
+  ?>
+    <table  class="collapseTableau">
+      <tr>
+        <th>
+          Nom
+        </th>
+        <th>
+          Prénom
+        </th>
+        <th>
+          Heure de la publication
+        </th>
+        <th>
+          Date publication
+        </th>
+        <th>
+          Commentaire
+        </th>
+        <th>
+          Note
+        </th>
+      </tr>
+    <?php
+      foreach ($listeAvis as $avis) {
+        $personneCommentant = $managerPersonne->getPersonne($avis->getIdPer_per());
+        $dateHeure = explode(' ', $avis->getDate());
+        $date = getFrenchDate($dateHeure[0]);
+        $heure = $dateHeure[1];
+        ?>
+        <tr>
+          <td class="elementTableau2">
+            <?php echo $personneCommentant->getNom(); ?>
+          </td>
+          <td class="elementTableau2">
+            <?php echo $personneCommentant->getPrenom(); ?>
+          </td>
+          <td class="elementTableau">
+            <?php echo $heure; ?>
+          </td>
+          <td class="elementTableau">
+            <?php echo $date; ?>
+          </td>
+          <td class="elementTableau">
+            <?php echo $avis->getComm(); ?>
+          </td>
+          <td class="elementTableau2">
+            <?php echo $avis->getNote().'/5'; ?>
+          </td>
+        </tr>
+      <?php
+      }
+    ?>
+    </table>
+    <?php
   }
 }
 ?>
