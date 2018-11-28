@@ -52,10 +52,13 @@ class PersonneManager{
 	}
 
     public function delPersonne($idPersonne){
-        $r = $this->db->prepare(
-            'DELETE FROM personne WHERE per_num = '.$idPersonne
-        );
-        $r->execute();
+      $r = $this->db->prepare(
+        'DELETE FROM personne WHERE per_num = :idPersonne'
+      );
+			$r->bindValue(':idPersonne', $idPersonne,
+				PDO::PARAM_INT);
+
+      $r->execute();
     }
 
     public function modifPers($nom,$prenom,$mail,$tel,$login,$pwd,$id){
@@ -66,4 +69,3 @@ class PersonneManager{
 	    $r->execute();
     }
 }
-
