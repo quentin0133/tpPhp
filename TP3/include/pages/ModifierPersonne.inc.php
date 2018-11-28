@@ -12,7 +12,7 @@ $listePersonne = $managerPersonne->getList();
 
 
 
-        <form action="#" method="post">
+        <form action="#" method="post" id="formulaire_modifier">
             <table>
                 <tr>
 
@@ -21,6 +21,7 @@ $listePersonne = $managerPersonne->getList();
                     <select class="select" name="per_num1" style="
                     width: 205px;
                     ">
+                        <option value="-1" onChange='document.getElementById("formulaire_modifier").submit()'> Choisissez une personne </option>
                         <?php
 
                         foreach($listePersonne as $personne) {
@@ -28,30 +29,36 @@ $listePersonne = $managerPersonne->getList();
                             <option value='<?php echo $personne->getId(); ?>'>
 
                                 <?php echo strtoupper($personne->getNom()); ?>  <?php echo $personne->getPrenom(); ?>
+
+
                             </option>
                             <?php
-
-
+                            $_SESSION['nomPersonne']=$personne->getNom();
+                            $_SESSION['prenomPersonne']=$personne->getPrenom();
+                            $_SESSION['mailPersonne']=$personne->getMail();
+                            $_SESSION['telPersonne']=$personne->getTel();
+                            $_SESSION['loginPersonne']=$personne->getLogin();
+                            $_SESSION['pwdPersonne']=$personne->getMdp();
                         }
                         ?>
                     </select>
                 <tr>
                     <td class="labelAlign"><label>nouveau/ancien Nom:</label></td>
-                    <td><input type="text" name="per_nom"></td>
+                    <td><input type="text" name="per_nom" value="<?php $_SESSION['nomPersonne'] ?>"></td>
                     <td class="labelAlign"><label>nouveau/ancien Prenom:</label></td>
-                    <td><input type="text" name="per_prenom"></td>
+                    <td><input type="text" name="per_prenom" value="<?php $_SESSION['prenomPersonne'] ?>"></td>
                 </tr>
                 <tr>
                     <td class="labelAlign"><label>nouveau/ancien Téléphone:</label></td>
-                    <td><input type="text" name="per_tel"></td>
+                    <td><input type="text" name="per_tel" value="<?php $_SESSION['telPersonne'] ?>"></td>
                     <td class="labelAlign"><label>nouveau/ancien Mail:</label></td>
-                    <td><input type="text" name="per_mail"></td>
+                    <td><input type="text" name="per_mail" value="<?php $_SESSION['mailPersonne'] ?>"></td>
                 </tr>
                 <tr>
                     <td class="labelAlign"><label>nouveau/ancien Login:</label></td>
-                    <td><input type="text" name="per_login"></td>
+                    <td><input type="text" name="per_login" value="<?php $_SESSION['loginPersonne'] ?>"></td>
                     <td class="labelAlign"><label>nouveau/ancien Mot de passe:</label></td>
-                    <td><input type="password" name="per_pwd"></td>
+                    <td><input type="password" name="per_pwd" ></td>
                 </tr>
                 <tr>
                 <td colspan=4>
