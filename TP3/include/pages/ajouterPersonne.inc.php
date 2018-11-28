@@ -60,7 +60,6 @@
 						'per_pwd' => $_POST['per_pwd'].SALT
 				)
 			);
-
 			$_SESSION['personne'] = $personne;
 			$_SESSION['typePersonne'] = $_POST['typePersonne'];
 		}
