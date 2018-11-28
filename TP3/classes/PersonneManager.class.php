@@ -63,9 +63,18 @@ class PersonneManager{
 
   public function modifPers($nom,$prenom,$mail,$tel,$login,$pwd,$id){
     $r = $this->db->prepare(
-          'UPDATE personne SET per_nom = '.$nom.', per_prenom = '.$prenom.',per_mail = '.$mail.
-          ',per_tel = '.$tel.',per_login = '.$login.',per_pwd = '.$pwd.' WHERE per_num = '.$id
-      );
+        'UPDATE personne SET per_nom = :nom, per_prenom = :prenom, per_mail = :mail,
+				per_tel = :tel, per_login = :login, per_pwd = :pwd WHERE per_num = :id'
+    );
+		$r->bindValue(':nom', $nom,
+			PDO::PARAM_STR);
+		$r->bindValue(':nom', $nom,
+			PDO::PARAM_STR);
+		$r->bindValue(':nom', $nom,
+			PDO::PARAM_STR);
+		$r->bindValue(':nom', $nom,
+			PDO::PARAM_STR);
+
     $r->execute();
   }
 }

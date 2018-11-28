@@ -44,22 +44,30 @@ else {
 		|| $parcours->getVille1() == $_POST['vil_num2'] && $parcours->getVille2() == $_POST['vil_num1']) {
 			$estDouble = true;
 		}
+		if($_POST['vil_num2'] == $_POST['vil_num1']) {
+			$estMeme = true;
+		}
 	}
 	if($estDouble) {
-		?>
-		<h1>Ajouter un parcours</h1>
+	?>
 		<p>
 			<img src="image/erreur.png" />
 			Le parcours existe déjà !
 		</p>
-		<?php
+	<?php
+	}
+	else if($estMeme) {
+	?>
+		<p>
+			<img src="image/erreur.png" />
+			Le parcours ne peut pas être la même ville !
+		</p>
+	<?php
 	}
 	else {
 		$parcours = new Parcours($_POST);
 		$managerParcours->add($parcours);
-
 		?>
-		<h1>Ajouter un parcours</h1>
 		<p>
 			<img src="image/valid.png" />
 			Le parcours a été ajouté
