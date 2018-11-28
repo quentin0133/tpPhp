@@ -5,8 +5,8 @@
 $listePersonne = $managerPersonne->getList();
 
 
- if (empty($_POST['per_nom']) && empty($_POST['per_prenom']) && empty($_POST['per_tel']) && empty($_POST['per_num1'])
-        && empty($_POST['per_mail']) && empty($_POST['per_login']) && empty($_POST['per_pwd'])) {
+ if (empty($_POST['per_nom']) || empty($_POST['per_prenom']) || empty($_POST['per_tel'])||empty($_POST['per_num1'])
+        || empty($_POST['per_mail']) || empty($_POST['per_login']) || empty($_POST['per_pwd'])) {
     ?>
 
 
@@ -77,7 +77,7 @@ if (!empty($_POST['per_nom']) && !empty($_POST['per_prenom']) && !empty($_POST['
     $nomPersonne = $res->getNom();
     $prenomPersonne = $res->getPrenom();
     $managerPersonne->modifPers($_POST['per_nom'], $_POST['per_prenom'],
-        $_POST['per_mail'], $_POST['per_tel'], $_POST['per_login'], $_POST['per_pwd'], $_POST['per_num1']);
+        $_POST['per_mail'], $_POST['per_tel'], $_POST['per_login'], $_POST['per_pwd'].SALT, $_POST['per_num1']);
     ?>
     <p>
         <img src="image/valid.png"/>
