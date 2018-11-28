@@ -32,12 +32,11 @@ class PersonneManager{
 			'SELECT * FROM personne'
 		);
 
-		$tabPersonne = $this->db->query($r);
-		while($personne = $tabPersonne->fetch(PDO::FETCH_OBJ)) {
+		$r->execute();
+		while($personne = $r->fetch(PDO::FETCH_OBJ)) {
 			$listePersonne[] = new Personne($personne);
 		}
 		return $listePersonne;
-		$tabPersonne->close();
 	}
 
 	public function getPersonne($idPersonne) {
