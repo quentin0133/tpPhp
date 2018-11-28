@@ -8,8 +8,8 @@ class ProposeManager{
 
 	public function add($propose) {
 		$r = $this->db->prepare(
-			'INSERT INTO propose(par_num, per_num, pro_date, pro_time, pro_place, pro_sens) VALUES(:idParcours, :idPersonne, :dateP,
-			:timeP, :place, :sens)'
+			'INSERT INTO propose(par_num, per_num, pro_date, pro_time, pro_place, pro_sens)
+			VALUES(:idParcours, :idPersonne, :dateP, :timeP, :place, :sens)'
 		);
 		$r->bindValue(':idParcours', $propose->getIdParcours(),
 			PDO::PARAM_INT);
@@ -25,6 +25,7 @@ class ProposeManager{
 			PDO::PARAM_INT);
 
 		$r->execute();
+		$r->closeCursor();
 	}
 
 	public function getList() {
@@ -37,6 +38,7 @@ class ProposeManager{
 		while($propose = $r->fetch(PDO::FETCH_OBJ)) {
 			$listePropose[] = new Propose($propose);
 		}
+		$r->closeCursor();
 		return $listePropose;
 	}
 
@@ -50,6 +52,7 @@ class ProposeManager{
 
 		$r->execute();
 		$proposeFetch = $r->fetch(PDO::FETCH_OBJ);
+		$r->closeCursor();
 		return new Propose($proposeFetch);
 	}
 
@@ -69,6 +72,7 @@ class ProposeManager{
 		while($propose = $r->fetch(PDO::FETCH_OBJ)) {
 			$listePropose[] = new Propose($propose);
 		}
+		$r->closeCursor();
 		return $listePropose;
 	}
 
@@ -80,6 +84,7 @@ class ProposeManager{
 			PDO::PARAM_INT);
 
     $r->execute();
+		$r->closeCursor();
 	}
 }
 ?>

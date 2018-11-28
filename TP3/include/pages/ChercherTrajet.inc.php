@@ -220,15 +220,15 @@ else if(!isset($_GET['id'])) {
           if(!empty($listeAvis)) {
           ?>
             <td class="elementTableau2"
-            title="Moyenne des avis : <?php echo $moyenneNote ?> Dernier avis : <?php echo $dernierCommentaire ?>">
-              <a href="index.php?page=10&id=<?php echo $personne->getId() ?>"><?php echo $personne->getPrenom().' '.$personne->getNom(); ?></a>
+            title="Moyenne des avis : <?php echo $moyenneNote ?> Dernier avis : <?php echo $dernierCommentaire; ?>">
+              <a href="index.php?page=10&id=<?php echo $personne->getId(); ?>"><?php echo $personne->getPrenom().' '.$personne->getNom(); ?></a>
             </td>
           <?php
           }
           else {
           ?>
             <td class="elementTableau2" title="Aucun avis n'a été trouvé">
-              <a href="index.php?page=10&id=-1"><?php echo $personne->getPrenom().' '.$personne->getNom(); ?></a>
+              <a href="index.php?page=10&id=<?php echo $personne->getId(); ?>"><?php echo $personne->getPrenom().' '.$personne->getNom(); ?></a>
             </td>
           <?php
           }

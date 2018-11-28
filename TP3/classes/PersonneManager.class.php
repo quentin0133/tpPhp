@@ -24,6 +24,7 @@ class PersonneManager{
 			PDO::PARAM_STR);
 
 		$r->execute();
+		$r->closeCursor();
 	}
 
 	public function getList() {
@@ -36,6 +37,7 @@ class PersonneManager{
 		while($personne = $r->fetch(PDO::FETCH_OBJ)) {
 			$listePersonne[] = new Personne($personne);
 		}
+		$r->closeCursor();
 		return $listePersonne;
 	}
 
@@ -48,6 +50,7 @@ class PersonneManager{
 
 		$r->execute();
 		$personneFetch = $r->fetch(PDO::FETCH_OBJ);
+		$r->closeCursor();
 		return new Personne($personneFetch);
 	}
 
@@ -59,6 +62,7 @@ class PersonneManager{
 			PDO::PARAM_INT);
 
 		$r->execute();
+		$r->closeCursor();
 	}
 
   public function modifPers($nom,$prenom,$mail,$tel,$login,$pwd,$id){
@@ -74,13 +78,14 @@ class PersonneManager{
 			PDO::PARAM_STR);
 		$r->bindValue(':tel', $tel,
 			PDO::PARAM_STR);
-      $r->bindValue(':login', $login,
-          PDO::PARAM_STR);
-      $r->bindValue(':pwd', $pwd,
-          PDO::PARAM_STR);
-      $r->bindValue(':id', $id,
-          PDO::PARAM_INT);
+    $r->bindValue(':login', $login,
+        PDO::PARAM_STR);
+    $r->bindValue(':pwd', $pwd,
+        PDO::PARAM_STR);
+    $r->bindValue(':id', $id,
+        PDO::PARAM_INT);
 
     $r->execute();
+		$r->closeCursor();
   }
 }

@@ -18,6 +18,7 @@ class ParcoursManager{
 			PDO::PARAM_INT);
 
 		$r->execute();
+		$r->closeCursor();
 	}
 
 	public function getList() {
@@ -30,6 +31,7 @@ class ParcoursManager{
 		while($parcours = $r->fetch(PDO::FETCH_OBJ)) {
 			$listeParcours[] = new Parcours($parcours);
 		}
+		$r->closeCursor();
 		return $listeParcours;
 	}
 
@@ -42,6 +44,7 @@ class ParcoursManager{
 
 		$r->execute();
 		$parcoursFetch = $r->fetch(PDO::FETCH_OBJ);
+		$r->closeCursor();
 		return new Parcours($parcoursFetch);
 	}
 
@@ -56,6 +59,7 @@ class ParcoursManager{
 		while($parcours = $r->fetch(PDO::FETCH_OBJ)) {
 			$listeParcours[] = new Parcours($parcours);
 		}
+		$r->closeCursor();
 		return $listeParcours;
 	}
 }

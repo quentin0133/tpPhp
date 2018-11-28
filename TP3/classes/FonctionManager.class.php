@@ -14,6 +14,7 @@ class FonctionManager{
 			PDO::PARAM_STR);
 
 		$r->execute();
+		$r->closeCursor();
 	}
 
 	public function getList() {
@@ -26,6 +27,7 @@ class FonctionManager{
 		while($fonction = $r->fetch(PDO::FETCH_OBJ)) {
 			$listeFonction[] = new Fonction($fonction);
 		}
+		$r->closeCursor();
 		return $listeFonction;
 	}
 
@@ -38,6 +40,7 @@ class FonctionManager{
 
 		$r->execute();
 		$fonctionFetch = $r->fetch(PDO::FETCH_OBJ);
+		$r->closeCursor();
 		return new Fonction($fonctionFetch);
 	}
 }

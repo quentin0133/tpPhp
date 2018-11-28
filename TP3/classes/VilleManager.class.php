@@ -13,6 +13,7 @@ class VilleManager{
 		$r->bindValue(':nomVille', $ville->getNom(),
 			PDO::PARAM_STR);
 		$r->execute();
+		$r->closeCursor();
 	}
 
 	public function getList() {
@@ -25,6 +26,7 @@ class VilleManager{
 		while($ville = $r->fetch(PDO::FETCH_OBJ)) {
 			$listeVilles[] = new Ville($ville);
 		}
+		$r->closeCursor();
 		return $listeVilles;
 	}
 
@@ -37,6 +39,7 @@ class VilleManager{
 
 		$r->execute();
 		$villeFetch = $r->fetch(PDO::FETCH_OBJ);
+		$r->closeCursor();
 		return new Ville($villeFetch);
 	}
 }

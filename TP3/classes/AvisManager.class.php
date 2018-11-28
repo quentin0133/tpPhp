@@ -18,6 +18,7 @@ class AvisManager{
 		while($avis = $r->fetch(PDO::FETCH_OBJ)) {
 			$listeAvis[] = new Avis($avis);
 		}
+    $r->closeCursor();
 		return $listeAvis;
 	}
 
@@ -29,6 +30,7 @@ class AvisManager{
 			PDO::PARAM_INT);
 
     $r->execute();
+    $r->closeCursor();
   }
 
 }
