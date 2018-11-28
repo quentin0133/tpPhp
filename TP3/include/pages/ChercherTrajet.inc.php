@@ -64,18 +64,18 @@ if(!isset($_POST['vil_depart']) && !isset($_POST['vil_arrive']) && !isset($_GET[
   </form>
 <?php
 }
-else if(!isset($_POST['vil_arrive']) && !isset($_POST['date'])
-&& !isset($_POST['precision']) && !isset($_POST['temp_depart']) && !isset($_GET['id'])) {
+else if(empty($_POST['date']) && empty($_POST['precision'])
+&& empty($_POST['temp_depart']) && !isset($_GET['id'])) {
   $_SESSION['vil_depart'] = $_POST['vil_depart'];
   $villeDepart = $managerVille->getVille($_SESSION['vil_depart']);
   ?>
   <form action="#" method="post">
     <table>
       <tr>
-        <td class="formulaireProposerTrajet">
-          <label>Ville de départ : <?php echo $villeDepart->getNom();   ?></label>
+        <td class="formulaireGauche">
+          <label>Ville de départ : <?php echo $villeDepart->getNom(); ?></label>
         </td>
-        <td class="labelAlign">
+        <td class="formulaireDroite">
           <label>Ville d'arrivée :</label>
           <select class="select" name="vil_arrive">
           <?php
