@@ -8,7 +8,7 @@ class ProposeManager{
 
 	public function add($propose) {
 		$r = $this->db->prepare(
-		'INSERT INTO propose(par_num, per_num, pro_date, pro_time, pro_place, pro_sens) VALUES(:idParcours, :idPersonne, :dateP,
+			'INSERT INTO propose(par_num, per_num, pro_date, pro_time, pro_place, pro_sens) VALUES(:idParcours, :idPersonne, :dateP,
 			:timeP, :place, :sens)'
 		);
 		$r->bindValue(':idParcours', $propose->getIdParcours(),
@@ -29,31 +29,57 @@ class ProposeManager{
 
 	public function getList() {
 		$listePropose = array();
-		$r = 'SELECT par_num, per_num, pro_date, pro_time, pro_place, pro_sens FROM propose';
+		$r = $this->db->prepare(
+			'SELECT * FROM propose'
+		);
 
-		$tabPropose = $this->db->query($r);
-		while($propose = $tabPropose->fetch(PDO::FETCH_OBJ)) {
+		$r->execute();
+		while($propose = $r->fetch(PDO::FETCH_OBJ)) {
 			$listePropose[] = new Propose($propose);
 		}
 		return $listePropose;
-		$tabPropose->close();
 	}
 
 	public function getProposeParcours($idParcours) {
-		$r = 'SELECT par_num, per_num, pro_date, pro_time, pro_place, pro_sens FROM propose WHERE par_num = '.$idParcours;
+		$r = $this->db->prepare(
+			'SELECT * FROM propose
+			WHERE par_num = :idParcours'
+		);
+		$r->bindValue(':idParcours', $idParcours,
+			PDO::PARAM_INT);
 
-		$tabPropose = $this->db->query($r);
-		$proposeFetch = $tabPropose->fetch(PDO::FETCH_OBJ);
-		$propose = new Propose($proposeFetch);
-		return $propose;
-		$tabPropose->close();
+		$r->execute();
+		$proposeFetch = $r->fetch(PDO::FETCH_OBJ);
+		return new Propose($proposeFetch);
+	}
+
+	public function getProposeAroundDate($date, $precision) {
+		$listePropose = array();
+		$r = $this->db->prepare(
+			'SELECT * FROM propose
+			 WHERE :date BETWEEN SUBDATE(pro_date, :precision)
+			 AND ADDDATE(pro_date, :precision)'
+		);
+		$r->bindValue(':date', $date,
+			PDO::PARAM_STR);
+		$r->bindValue(':precision', $precision,
+			PDO::PARAM_INT);
+
+		$r->execute();
+		while($propose = $r->fetch(PDO::FETCH_OBJ)) {
+			$listePropose[] = new Propose($propose);
+		}
+		return $listePropose;
 	}
 
 	public function delProposeParcours($idPersonne){
-        $r = $this->db->prepare(
-            'DELETE FROM propose WHERE per_num = '.$idPersonne
-        );
-        $r->execute();
+    $r = $this->db->prepare(
+      'DELETE FROM propose WHERE per_num = :idPersonne'
+    );
+		$r->bindValue(':idPersonne', $idPersonne,
+			PDO::PARAM_INT);
+
+    $r->execute();
 	}
 }
 ?>

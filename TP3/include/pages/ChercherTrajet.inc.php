@@ -1,6 +1,5 @@
 <h1>Rechercher un trajet</h1>
 <?php
-$cpt = 0;
 $estDouble = false;
 $listePropose = $managerPropose->getList();
 if(!isset($_POST['vil_depart']) && !isset($_POST['vil_arrive'])) {
@@ -40,14 +39,14 @@ if(!isset($_POST['vil_depart']) && !isset($_POST['vil_arrive'])) {
         }
       }
       if(!$estDouble) {
-        $listeBanParcours[$cpt] = $parcours;
+        $listeBanParcours[] = $parcours;
         if($propose->getSens() == 0) {
-        ?>
+          $listeBanVille[] = $ville1;
+          ?>
           <option value='<?php echo $ville1->getId() ?>'>
             <?php echo $ville1->getNom() ?>
           </option>
-          <?php
-          $listeBanVille[$cpt] = $ville1;
+        <?php
         }
         else {
         ?>
@@ -55,9 +54,8 @@ if(!isset($_POST['vil_depart']) && !isset($_POST['vil_arrive'])) {
             <?php echo $ville2->getNom() ?>
           </option>
           <?php
-          $listeBanVille[$cpt] = $ville2;
+          $listeBanVille[] = $ville2;
         }
-        $cpt++;
       }
       $estDouble = false;
     }
@@ -66,7 +64,7 @@ if(!isset($_POST['vil_depart']) && !isset($_POST['vil_arrive'])) {
   </form>
 <?php
 }
-else if(!isset($_POST['vil_arrive']) && !isset($_POST['date_depart'])
+else if(!isset($_POST['vil_arrive']) && !isset($_POST['date'])
 && !isset($_POST['precision']) && !isset($_POST['temp_depart'])) {
   $_SESSION['vil_depart'] = $_POST['vil_depart'];
   $villeDepart = $managerVille->getVille($_SESSION['vil_depart']);
@@ -104,12 +102,15 @@ else if(!isset($_POST['vil_arrive']) && !isset($_POST['date_depart'])
       <tr>
         <td>
           <label>Date de départ : </label>
-          <input type="date" name="date_depart" value="<?php echo date('Y') ?>-<?php echo date('m') ?>-<?php echo date('d') ?>" />
+          <input type="date" name="date" value="<?php echo date('Y') ?>-<?php echo date('m') ?>-<?php echo date('d') ?>"/>
         </td>
         <td>
           <label>Précision : </label>
           <select class="select" name="precision">
-            <option>Ce jour</option>
+            <option value="0">Ce jour</option>
+            <option value="1">+/- 1 jour</option>
+            <option value="2">+/- 2 jours</option>
+            <option value="3">+/- 3 jours</option>
           </select>
         </td>
       </tr>
@@ -117,13 +118,126 @@ else if(!isset($_POST['vil_arrive']) && !isset($_POST['date_depart'])
         <td>
           <label>A partir de : </label>
           <select class="select" name="temp_depart">
-            <option>Ce jour</option>
+            <?php
+            for ($cpt = 0; $cpt <= 24; $cpt++) {
+            ?>
+              <option value="<?php echo $cpt; ?>">
+                <?php echo $cpt.'h'; ?>
+              </option>
+              <?php
+            }
+            ?>
           </select>
         </td>
       </tr>
     </table>
     <input type="submit" value="Valider" />
   </form>
+<?php
+}
+else {
+  $listePropose = $managerPropose->getProposeAroundDate($_POST['date'], $_POST['precision']);
+  foreach ($listePropose as $propose) {
+    $parcours = $managerParcours->getParcours($propose->getIdParcours());
+    $heure = explode(":", $propose->getTime())[0];
+    if($_SESSION['direction'] == 0) {
+      if($parcours->getVille1() == $_SESSION['vil_depart']
+      && $parcours->getVille2() == $_POST['vil_arrive']
+      && $heure >= $_POST['temp_depart']) {
+        $listeProposeAfficher[] = $propose;
+      }
+    }
+    else {
+      if($parcours->getVille1() == $_SESSION['vil_arrive']
+      && $parcours->getVille2() == $_POST['vil_depart']
+      && $heure >= $_POST['temp_depart']) {
+        $listeProposeAfficher[] = $propose;
+      }
+    }
+  }
+  if(isset($listeProposeAfficher)) {
+  ?>
+    <table class="collapseTableau">
+      <tr>
+        <th>
+          Ville départ
+        </th>
+        <th>
+          Ville arrivée
+        </th>
+        <th>
+          Date départ
+        </th>
+        <th>
+          Heure départ
+        </th>
+        <th>
+          Nombre de place(s)
+        </th>
+        <th>
+          Nom du convoitureur
+        </th>
+      </tr>
+      <?php
+      foreach($listeProposeAfficher as $proposeAfficher) {
+        $ville1 = $managerVille->getVille($_SESSION['vil_depart']);
+        $ville2 = $managerVille->getVille($_POST['vil_arrive']);
+        $personne = $managerPersonne->getPersonne($proposeAfficher->getIdPersonne());
+        $dateFr = getFrenchDate($proposeAfficher->getDate());
+        $listeAvis = $managerAvis->getAvis($personne->getId());
+        $cptAvis = 0.0;
+        $noteAvis = 0.0;
+        foreach ($listeAvis as $avis) {
+          $cptAvis++;
+          $noteAvis += $avis->getNote();
+          $dernierCommentaire = $avis->getComm();
+        }
+        if(!empty($listeAvis)) {
+          $moyenneNote = divideFloat($noteAvis, $cptAvis);
+        }
+        ?>
+        <tr>
+          <td class="elementTableau2">
+            <?php echo $ville1->getNom(); ?>
+          </td>
+          <td class="elementTableau2">
+            <?php echo $ville2->getNom(); ?>
+          </td>
+          <td class="elementTableau2">
+            <?php echo $dateFr; ?>
+          </td>
+          <td class="elementTableau2">
+            <?php echo $proposeAfficher->getTime(); ?>
+          </td>
+          <td class="elementTableau2">
+            <?php echo $proposeAfficher->getPlace(); ?>
+          </td>
+          <td class="elementTableau2"
+          <?php
+          if(!empty($listeAvis)) {
+          ?>
+            id="avis"
+            title="Moyenne des avis : <?php echo $moyenneNote ?> Dernier avis : <?php echo $dernierCommentaire ?>"
+          <?php
+          }
+          ?>
+          >
+            <?php echo $personne->getPrenom().' '.$personne->getNom(); ?>
+          </td>
+        </tr>
+      <?php
+      }
+      ?>
+    </table>
+    <?php
+  }
+  else {
+  ?>
+    <p>
+      <img src="image/erreur.png" />
+      Désolé, aucun trajet n'a été trouvé !
+    </p>
   <?php
+  }
 }
 ?>

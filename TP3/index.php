@@ -18,7 +18,9 @@
 	$managerSalarie = new SalarieManager($db);
 	$managerFonction = new FonctionManager($db);
 	$managerPropose = new ProposeManager($db);
-    $managerAvis = new AvisManager($db);
+
+	$managerAvis = new AvisManager($db);
+
 ?>
 <div id="corps">
 <?php
