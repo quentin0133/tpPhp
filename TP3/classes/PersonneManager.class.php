@@ -8,7 +8,7 @@ class PersonneManager{
 
 	public function add($personne) {
 		$r = $this->db->prepare(
-		'INSERT INTO personne(per_nom, per_prenom, per_tel, per_mail, per_login, per_pwd) VALUES(:nom, :prenom, :tel, :mail, :login, :mdp)'
+			'INSERT INTO personne(per_nom, per_prenom, per_tel, per_mail, per_login, per_pwd) VALUES(:nom, :prenom, :tel, :mail, :login, :mdp)'
 		);
 		$r->bindValue(':nom', $personne->getNom(),
 			PDO::PARAM_INT);
@@ -28,7 +28,9 @@ class PersonneManager{
 
 	public function getList() {
 		$listePersonne = array();
-		$r = 'SELECT * FROM personne';
+		$r = $this->db->prepare(
+			'SELECT * FROM personne'
+		);
 
 		$tabPersonne = $this->db->query($r);
 		while($personne = $tabPersonne->fetch(PDO::FETCH_OBJ)) {
@@ -38,13 +40,15 @@ class PersonneManager{
 		$tabPersonne->close();
 	}
 
-	public function getPersonne($id) {
-		$r = 'SELECT * FROM personne WHERE per_num = '.$id;
+	public function getPersonne($idPersonne) {
+		$r = $this->db->prepare(
+			'SELECT * FROM personne WHERE per_num = :idPersonne'
+		);
+		$r->bindValue(':idPersonne', $idPersonne,
+			PDO::PARAM_INT);
 
-		$tabPersonne = $this->db->query($r);
-		$personneFetch = $tabPersonne->fetch(PDO::FETCH_OBJ);
-		$personne = new Personne($personneFetch);
-		return $personne;
-		$tabPersonne->close();
+		$r->execute();
+		$personneFetch = $r->fetch(PDO::FETCH_OBJ);
+		return new Personne($personneFetch);
 	}
 }

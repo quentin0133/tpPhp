@@ -8,7 +8,7 @@ class VilleManager{
 
 	public function add($ville) {
 		$r = $this->db->prepare(
-		'INSERT INTO ville(vil_nom) VALUES(:nomVille)'
+			'INSERT INTO ville(vil_nom) VALUES(:nomVille)'
 		);
 		$r->bindValue(':nomVille', $ville->getNom(),
 			PDO::PARAM_STR);
@@ -17,24 +17,27 @@ class VilleManager{
 
 	public function getList() {
 		$listeVilles = array();
-		$r = 'SELECT vil_num, vil_nom FROM ville';
+		$r = $this->db->prepare(
+			'SELECT * FROM ville'
+		);
 
-		$tabVille = $this->db->query($r);
-		while($ville = $tabVille->fetch(PDO::FETCH_OBJ)) {
+		$r->execute();
+		while($ville = $r->fetch(PDO::FETCH_OBJ)) {
 			$listeVilles[] = new Ville($ville);
 		}
 		return $listeVilles;
-		$tabVille->close();
 	}
 
 	public function getVille($idVille) {
-		$r = 'SELECT vil_num, vil_nom FROM ville WHERE vil_num = '.$idVille;
+		$r = $this->db->prepare(
+			'SELECT * FROM ville WHERE vil_num = :idVille'
+		);
+		$r->bindValue(':idVille', $idVille,
+			PDO::PARAM_INT);
 
-		$tabVille = $this->db->query($r);
-		$villeFetch = $tabVille->fetch(PDO::FETCH_OBJ);
-		$ville = new Ville($villeFetch);
-		return $ville;
-		$tabVille->close();
+		$r->execute();
+		$villeFetch = $r->fetch(PDO::FETCH_OBJ);
+		return new Ville($villeFetch);
 	}
 }
 ?>

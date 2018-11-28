@@ -8,7 +8,7 @@ class ProposeManager{
 
 	public function add($propose) {
 		$r = $this->db->prepare(
-		'INSERT INTO propose(par_num, per_num, pro_date, pro_time, pro_place, pro_sens) VALUES(:idParcours, :idPersonne, :dateP,
+			'INSERT INTO propose(par_num, per_num, pro_date, pro_time, pro_place, pro_sens) VALUES(:idParcours, :idPersonne, :dateP,
 			:timeP, :place, :sens)'
 		);
 		$r->bindValue(':idParcours', $propose->getIdParcours(),

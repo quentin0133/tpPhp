@@ -20,7 +20,7 @@ class Mypdo extends PDO
 
 		}
 		catch (PDOException $e) {
-			echo '�chec lors de la connexion : ' . $e->getMessage();
+			echo 'échec lors de la connexion : ' . $e->getMessage();
 		}
 	}
 

@@ -8,7 +8,7 @@ class DivisionManager{
 
 	public function add($division) {
 		$r = $this->db->prepare(
-		'INSERT INTO division(div_num, div_nom) VALUES(:id, :nom)'
+			'INSERT INTO division(div_num, div_nom) VALUES(:id, :nom)'
 		);
 		$r->bindValue(':id', $division->getId(),
 			PDO::PARAM_INT);
@@ -20,13 +20,14 @@ class DivisionManager{
 
 	public function getList() {
 		$listeDivision = array();
-		$r = 'SELECT div_num, div_nom FROM division';
+		$r = $this->db->prepare(
+			'SELECT * FROM division'
+		);
 
-		$tabDivision = $this->db->query($r);
-		while($division = $tabDivision->fetch(PDO::FETCH_OBJ)) {
+		$r->execute();
+		while($division = $r->fetch(PDO::FETCH_OBJ)) {
 			$listeDivision[] = new Division($division);
 		}
 		return $listeDivision;
-		$tabDivision->close();
 	}
 }

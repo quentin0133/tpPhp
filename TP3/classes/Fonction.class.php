@@ -1,7 +1,7 @@
 <?php
 class Fonction{
 	private $id;
-	private $liblle;
+	private $libelle;
 
 	public function __construct($values = array()) {
 		if(!empty($values)) {
