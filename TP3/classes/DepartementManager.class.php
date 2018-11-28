@@ -8,7 +8,7 @@ class DepartementManager{
 
 	public function add($departement) {
 		$r = $this->db->prepare(
-		'INSERT INTO departement(dep_nom, vil_num) VALUES(:nom, :idVille)'
+			'INSERT INTO departement(dep_nom, vil_num) VALUES(:nom, :idVille)'
 		);
 		$r->bindValue(':nom', $departement->getIdDepartement(),
 			PDO::PARAM_STR);
@@ -24,8 +24,8 @@ class DepartementManager{
 			'SELECT * FROM departement'
 		);
 
-		$tabDepartement = $this->db->query($r);
-		while($departement = $tabDepartement->fetch(PDO::FETCH_OBJ)) {
+		$r->execute();
+		while($departement = $r->fetch(PDO::FETCH_OBJ)) {
 			$listeDepartement[] = new Departement($departement);
 		}
 		return $listeDepartement;
