@@ -13,7 +13,7 @@
 				foreach($listePersonne as $personne) {
 				?>
 					<option value='<?php echo $personne->getId(); ?>'>
-						<?php echo strtoupper($personne->getNom()); ?>  <?php echo $personne->getPrenom(); ?>
+						<?php echo strtoupper($personne->getNom()).' '.$personne->getPrenom(); ?>
 					</option>
 				<?php
 				}
