@@ -8,7 +8,7 @@ class ParcoursManager{
 
 	public function add($parcours) {
 		$r = $this->db->prepare(
-		'INSERT INTO parcours(par_km, vil_num1, vil_num2) VALUES(:parKm, :parVille1, :parVille2)'
+			'INSERT INTO parcours(par_km, vil_num1, vil_num2) VALUES(:parKm, :parVille1, :parVille2)'
 		);
 		$r->bindValue(':parKm', $parcours->getKm(),
 			PDO::PARAM_INT);
@@ -22,34 +22,40 @@ class ParcoursManager{
 
 	public function getList() {
 		$listeParcours = array();
-		$r = 'SELECT par_num, par_km, vil_num1, vil_num2 FROM parcours';
+		$r = $this->db->prepare(
+			'SELECT * FROM parcours'
+		);
 
-		$tabParcours = $this->db->query($r);
-		while($parcours = $tabParcours->fetch(PDO::FETCH_OBJ)) {
+		$r->execute();
+		while($parcours = $r->fetch(PDO::FETCH_OBJ)) {
 			$listeParcours[] = new Parcours($parcours);
 		}
 		return $listeParcours;
-		$tabParcours->close();
 	}
 
 	public function getParcours($idParcours) {
-		$r = 'SELECT par_num, par_km, vil_num1, vil_num2 FROM parcours WHERE par_num = '.$idParcours;
+		$r = $this->db->prepare(
+			'SELECT * FROM parcours WHERE par_num = :idParcours'
+		);
+		$r->bindValue(':idParcours', $idParcours,
+			PDO::PARAM_INT);
 
-		$tabParcours = $this->db->query($r);
-		$parcoursFetch = $tabParcours->fetch(PDO::FETCH_OBJ);
-		$parcours = new Parcours($parcoursFetch);
-		return $parcours;
-		$tabParcours->close();
+		$r->execute();
+		$parcoursFetch = $r->fetch(PDO::FETCH_OBJ);
+		return new Parcours($parcoursFetch);
 	}
 
 	public function getListPairVille($vil_num) {
-		$r = 'SELECT par_num, vil_num1, vil_num2 FROM parcours WHERE vil_num1 = '.$vil_num.' OR vil_num2 = '.$vil_num;
+		$r = $this->db->prepare(
+			'SELECT * FROM parcours WHERE vil_num1 = :vil_num OR vil_num2 = :vil_num'
+		);
+		$r->bindValue(':vil_num', $vil_num,
+			PDO::PARAM_INT);
 
-		$tabParcours = $this->db->query($r);
-		while($parcours = $tabParcours->fetch(PDO::FETCH_OBJ)) {
+		$r->execute();
+		while($parcours = $r->fetch(PDO::FETCH_OBJ)) {
 			$listeParcours[] = new Parcours($parcours);
 		}
 		return $listeParcours;
-		$tabParcours->close();
 	}
 }

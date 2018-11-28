@@ -3,37 +3,37 @@ class Avis{
 	private $idPer;
 	private $idPer_per;
 	private $idParcours;
-    private $comm;
-    private $note;
-    private $date;
+  private $comm;
+  private $note;
+  private $date;
 
 	public function __construct($values = array()) {
 		if(!empty($values)) {
-			$this->set($values);
+			$this->add($values);
 		}
 	}
 
-	public function set($data) {
+	public function add($data) {
 		foreach($data as $label => $value) {
 			switch($label) {
-				case 'idPer':
+				case 'per_num':
 					$this->setIdPer($value);
 					break;
-				case 'idPer_per':
+				case 'per_per_num':
 					$this->setIdPer_per($value);
 					break;
-				case 'idParcours':
+				case 'par_num':
 					$this->setIdParcours($value);
 					break;
-                case 'comm':
-                    $this->setComm($value);
-                    break;
-                case 'note':
-                    $this->setNote($value);
-                    break;
-                case 'date':
-                    $this->setDate($value);
-                    break;
+        case 'avi_comm':
+            $this->setComm($value);
+            break;
+        case 'avi_note':
+            $this->setNote($value);
+            break;
+        case 'avi_date':
+            $this->setDate($value);
+            break;
 			}
 		}
 	}

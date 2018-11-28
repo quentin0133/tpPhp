@@ -8,7 +8,7 @@ class SalarieManager{
 
 	public function add($salarie) {
 		$r = $this->db->prepare(
-		'INSERT INTO salarie(per_num, sal_telprof, fon_num) VALUES(:per_num, :sal_telprof, :fon_num)'
+			'INSERT INTO salarie(per_num, sal_telprof, fon_num) VALUES(:per_num, :sal_telprof, :fon_num)'
 		);
 		$r->bindValue(':per_num', $salarie->getIdPersonne(),
 			PDO::PARAM_INT);
@@ -22,24 +22,27 @@ class SalarieManager{
 
 	public function getList() {
 		$listeSalarie = array();
-		$r = 'SELECT per_num, sal_telprof, fon_num FROM salarie';
+		$r = $this->db->prepare(
+			'SELECT * FROM salarie'
+		);
 
-		$tabSalarie = $this->db->query($r);
-		while($salarie = $tabSalarie->fetch(PDO::FETCH_OBJ)) {
+		$r->execute();
+		while($salarie = $r->fetch(PDO::FETCH_OBJ)) {
 			$listeSalarie[] = new Salarie($salarie);
 		}
 		return $listeSalarie;
-		$tabSalarie->close();
 	}
 
 	public function getSalariePersonne($idPersonne) {
-		$r = 'SELECT per_num, sal_telprof, fon_num FROM salarie WHERE per_num = '.$idPersonne;
+		$r = $this->db->prepare(
+			'SELECT * FROM salarie WHERE per_num = :idPersonne'
+		);
+		$r->bindValue(':idPersonne', $idPersonne,
+			PDO::PARAM_INT);
 
-		$tabSalarie = $this->db->query($r);
-		$salarieFetch = $tabSalarie->fetch(PDO::FETCH_OBJ);
-		$salarie = new Salarie($salarieFetch);
-		return $salarie;
-		$tabSalarie->close();
+		$r->execute();
+		$salarieFetch = $r->fetch(PDO::FETCH_OBJ);
+		return new Salarie($salarieFetch);
 	}
 
     public function delSalarie($idPersonne){

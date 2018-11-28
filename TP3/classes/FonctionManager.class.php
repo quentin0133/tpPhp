@@ -8,10 +8,8 @@ class FonctionManager{
 
 	public function add($fonction) {
 		$r = $this->db->prepare(
-		'INSERT INTO fonction(fon_num, fon_libelle) VALUES(:id, :libelle)'
+			'INSERT INTO fonction(fon_libelle) VALUES(:libelle)'
 		);
-		$r->bindValue(':id', $fonction->getId(),
-			PDO::PARAM_INT);
 		$r->bindValue(':libelle', $fonction->getLibelle(),
 			PDO::PARAM_STR);
 
@@ -20,23 +18,26 @@ class FonctionManager{
 
 	public function getList() {
 		$listeFonction = array();
-		$r = 'SELECT fon_num, fon_libelle FROM fonction';
+		$r = $this->db->prepare(
+			'SELECT * FROM fonction'
+		);
 
-		$tabFonction = $this->db->query($r);
+		$r->execute();
 		while($fonction = $tabFonction->fetch(PDO::FETCH_OBJ)) {
 			$listeFonction[] = new Fonction($fonction);
 		}
 		return $listeFonction;
-		$tabFonction->close();
 	}
 
 	public function getFonction($idFonction) {
-		$r = 'SELECT fon_num, fon_libelle FROM fonction WHERE fon_num = '.$idFonction;
+		$r = $this->db->prepare(
+			'SELECT * FROM fonction WHERE fon_num = :idFonction'
+		);
+		$r->bindValue(':idFonction', $idFonction,
+			PDO::PARAM_STR);
 
-		$tabFonction = $this->db->query($r);
-		$fonctionFetch = $tabFonction->fetch(PDO::FETCH_OBJ);
-		$fonction = new Fonction($fonctionFetch);
-		return $fonction;
-		$tabFonction->close();
+		$r->execute();
+		$fonctionFetch = $r->fetch(PDO::FETCH_OBJ);
+		return new Fonction($fonctionFetch);
 	}
 }
