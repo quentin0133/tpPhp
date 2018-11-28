@@ -288,3 +288,12 @@ table {
 	text-decoration: underline;
 	color: blue;
 }
+
+
+#modifSalarie{
+	display: none;
+}
+
+#modifEtudiant{
+	display: none;
+}

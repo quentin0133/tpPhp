@@ -68,12 +68,18 @@ class PersonneManager{
     );
 		$r->bindValue(':nom', $nom,
 			PDO::PARAM_STR);
-		$r->bindValue(':nom', $nom,
+		$r->bindValue(':prenom', $prenom,
 			PDO::PARAM_STR);
-		$r->bindValue(':nom', $nom,
+		$r->bindValue(':mail', $mail,
 			PDO::PARAM_STR);
-		$r->bindValue(':nom', $nom,
+		$r->bindValue(':tel', $tel,
 			PDO::PARAM_STR);
+      $r->bindValue(':login', $login,
+          PDO::PARAM_STR);
+      $r->bindValue(':pwd', $pwd,
+          PDO::PARAM_STR);
+      $r->bindValue(':id', $id,
+          PDO::PARAM_INT);
 
     $r->execute();
   }
