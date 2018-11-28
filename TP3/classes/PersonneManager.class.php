@@ -50,4 +50,11 @@ class PersonneManager{
 		$personneFetch = $r->fetch(PDO::FETCH_OBJ);
 		return new Personne($personneFetch);
 	}
+
+    public function delPersonne($idPersonne){
+        $r = $this->db->prepare(
+            'DELETE FROM personne WHERE per_num = '.$idPersonne
+        );
+        $r->execute();
+    }
 }

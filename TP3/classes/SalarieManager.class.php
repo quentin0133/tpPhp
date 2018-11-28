@@ -44,4 +44,11 @@ class SalarieManager{
 		$salarieFetch = $r->fetch(PDO::FETCH_OBJ);
 		return new Salarie($salarieFetch);
 	}
+
+    public function delSalarie($idPersonne){
+        $r = $this->db->prepare(
+            'DELETE FROM salarie WHERE per_num = '.$idPersonne
+        );
+        $r->execute();
+    }
 }

@@ -28,5 +28,6 @@ class AvisManager{
 
     $r->execute();
   }
+
 }
 ?>

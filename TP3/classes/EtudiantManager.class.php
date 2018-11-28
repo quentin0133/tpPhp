@@ -44,4 +44,11 @@ class EtudiantManager{
 		$etudiantFetch = $r->fetch(PDO::FETCH_OBJ);
 		return new Etudiant($etudiantFetch);
 	}
+
+    public function delEtudiant($idPersonne){
+        $r = $this->db->prepare(
+            'DELETE FROM etudiant WHERE per_num = '.$idPersonne
+        );
+        $r->execute();
+    }
 }
