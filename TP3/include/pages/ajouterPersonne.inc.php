@@ -1,16 +1,5 @@
 <?php
-// Control form personne
-$valide = false;
-if(!isEmptyPersonne()) {
-	if(estNumeroTel($_POST['per_tel']) && estEmail($_POST['per_mail'])
-	&& estLogin($_POST['per_login']) && estMDP($_POST['per_pwd'])) {
-		$valide = true;
-	}
-}
-
-if(isEmptyPersonne() && !isset($_POST['departementEtudiant'])
-&& !isset($_POST['fonctionSalarie']) && !$valide) {
-	// unset session
+if(empty($_POST['per_nom']) && empty($_SESSION['personne'])) {
 	unset($_SESSION['typePersonne']);
 	unset($_SESSION['personne']);
 	?>
@@ -19,30 +8,30 @@ if(isEmptyPersonne() && !isset($_POST['departementEtudiant'])
 		<table>
 			<tr>
 				<td class="labelAlign"> <label>Nom:</label> </td>
-				<td> <input type="text" name="per_nom"> </td>
+				<td> <input type="text" name="per_nom" required> </td>
 				<td class="labelAlign"> <label>Prenom:</label> </td>
-				<td> <input type="text" name="per_prenom"> </td>
+				<td> <input type="text" name="per_prenom" required> </td>
 			</tr>
 			<tr>
 				<td class="labelAlign"> <label>Téléphone:</label> </td>
-				<td> <input type="text" name="per_tel"> </td>
+				<td> <input type="text" name="per_tel" required> </td>
 				<td class="labelAlign"> <label>Mail:</label> </td>
-				<td> <input type="text" name="per_mail"> </td>
+				<td> <input type="text" name="per_mail" required> </td>
 			</tr>
 			<tr>
 				<td class="labelAlign"> <label>Login:</label> </td>
-				<td> <input type="text" name="per_login"> </td>
+				<td> <input type="text" name="per_login" required> </td>
 				<td class="labelAlign"> <label>Mot de passe:</label> </td>
-				<td> <input required title="3 caracteres minimum" type="password" name="per_pwd"> </td>
+				<td> <input type="password" name="per_pwd" required> </td>
 			</tr>
 			<tr>
 				<td colspan=4>
 					<label>Catégorie:</label>
 
-					<input type="radio" name="typePersonne" value="etudiant" />
+					<input type="radio" name="typePersonne" value="etudiant" required />
 					<label>Etudiant</label>
 
-					<input type="radio" name="typePersonne" value="personnel" />
+					<input type="radio" name="typePersonne" value="personnel" required />
 					<label>Personnel</label>
 				</td>
 			<tr>
@@ -61,7 +50,7 @@ else {
 		$_SESSION['typePersonne'] = $_POST['typePersonne'];
 	}
 
-	if(isset($_SESSION['typePersonne']) && $_SESSION['typePersonne'] == 'etudiant') {
+	if($_SESSION['typePersonne'] == 'etudiant') {
 		if(empty($_POST['anneeEtudiant'])) {
 		?>
 			<h1>Ajouter un étudiant</h1>
@@ -126,8 +115,10 @@ else {
 				)
 			);
 			$managerEtudiant->add($etudiant);
+			unset($_SESSION['typePersonne']);
+			unset($_SESSION['personne']);
 			?>
-			<h1>Ajouter un etudiant</h1>
+			<h1>Ajouter un étudiant</h1>
 			<p>
 				<img src="image/valid.png" />
 				L'etudiant a été ajouté
@@ -141,7 +132,7 @@ else {
 			<h1>Ajouter un salarié</h1>
 			<form action="#" method="post">
 				<label>Téléphone professionel:</label>
-				<input type="text" name="telSalarie">
+				<input type="text" name="telSalarie" required>
 				<br>
 				<label>Fonction:</label>
 				<select class="select" name="fonctionSalarie">
@@ -171,6 +162,8 @@ else {
 				)
 			);
 			$managerSalarie->add($salarie);
+			unset($_SESSION['typePersonne']);
+			unset($_SESSION['personne']);
 			?>
 			<h1>Ajouter un salarié</h1>
 			<p>
