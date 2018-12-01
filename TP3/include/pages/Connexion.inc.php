@@ -1,47 +1,47 @@
 <h1>Pour vous connecter</h1>
 <?php
-  $nombreCaptcha1 = rand(1, 9);
-  $nombreCaptcha2 = rand(1, 9);
-  if(!empty($_POST['login']) && !empty($_POST['mdp']) && !empty($_POST['captcha'])) {
-    if($_POST['captcha'] == ($_POST['nombreCaptcha1'] + $_POST['nombreCaptcha2'])) {
-      $estReussiCaptcha = true;
+$nombreCaptcha1 = rand(1, 9);
+$nombreCaptcha2 = rand(1, 9);
+if(!empty($_POST['login'])) {
+  if($_POST['captcha'] == ($_POST['nombreCaptcha1'] + $_POST['nombreCaptcha2'])) {
+    $listePersonne = $managerPersonne->getList();
+    foreach ($listePersonne as $personne) {
+      if($_POST['login'] == $personne->getLogin()
+      && ($_POST['mdp'].SALT) == $personne->getMdp()) {
+        $_SESSION['estConnecte'] = $personne;
+        header('Location: index.php?page=0');
+    		exit();
+      }
     }
-    else {
+    if(!isset($_SESSION['estConnecte']))
+    {
     ?>
-      <p>Le captcha est erroné !</p>
-      <?php
-      $estReussiCaptcha = false;
-      $nombreCaptcha1 = rand(1, 9);
-      $nombreCaptcha2 = rand(1, 9);
-    }
-    if($estReussiCaptcha) {
-      $listePersonne = $managerPersonne->getList();
-      foreach ($listePersonne as $personne) {
-        if($_POST['login'] == $personne->getLogin() && ($_POST['mdp'].SALT) == $personne->getMdp()) {
-          $_SESSION['estConnecte'] = $personne;
-          header('Location: index.php?page=0');
-      		exit();
-        }
-      }
-      if(!isset($_SESSION['estConnecte']))
-      {
-      ?>
-        <p>Le login et/ou le mot de passe est/sont erroné(s) !</p>
-      <?php
-      }
+      <p>Le login et/ou le mot de passe est/sont erroné(s) !</p>
+    <?php
     }
   }
+  else {
+  ?>
+    <p>Le captcha est erroné !</p>
+    <?php
+    $estReussiCaptcha = false;
+    $nombreCaptcha1 = rand(1, 9);
+    $nombreCaptcha2 = rand(1, 9);
+  }
+}
 ?>
 <form action="#" method="post">
   <input type="hidden" name="nombreCaptcha2" value="<?php echo $nombreCaptcha1 ?>" />
   <input type="hidden" name="nombreCaptcha1" value="<?php echo $nombreCaptcha2 ?>" />
   <label>Nom d'utilisateur:</label>
   <br>
-  <input title="ConnexionNomUtilisateur" type="text" name="login">
+  <input title="ConnexionNomUtilisateur"
+  type="text" name="login" required>
     <br>
   <label>Mot de passe:</label>
     <br>
-  <input title="ConnexionMDP" type="password" name="mdp">
+  <input title="ConnexionMDP"
+  type="password" name="mdp" required>
     <br>
   <label id="captcha">
   <?php
@@ -146,7 +146,8 @@
   =
   </label>
     <br>
-  <input title="captcha" type="text" name="captcha">
+  <input title="captcha"
+  type="text" name="captcha" required>
     <br>
   <input type="submit" value="Valider">
 </form>

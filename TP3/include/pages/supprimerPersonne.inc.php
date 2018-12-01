@@ -1,14 +1,11 @@
 <?php
-
-
 	$listePersonne = $managerPersonne->getList();
-    $managerAvis = new AvisManager($db);
 	if(empty($_POST['per_num'])) {
 	?>
 		<h1>Supprimer une personne</h1>
 		<form action="#" method="post">
-			<label> Sélectionner la personne à supprimer : </label>
-			<select title="SelectDElPersonne" class="select" name="per_num" style="width: 205px;">
+			<label>La personne à supprimer :</label>
+			<select title="Liste des personnes" class="select" name="per_num" style="width: 205px;">
 			<?php
 				foreach($listePersonne as $personne) {
 				?>

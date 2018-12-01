@@ -18,6 +18,7 @@ class SalarieManager{
 			PDO::PARAM_INT);
 
 		$r->execute();
+		$r->closeCursor();
 	}
 
 	public function getList() {
@@ -30,6 +31,7 @@ class SalarieManager{
 		while($salarie = $r->fetch(PDO::FETCH_OBJ)) {
 			$listeSalarie[] = new Salarie($salarie);
 		}
+		$r->closeCursor();
 		return $listeSalarie;
 	}
 
@@ -42,6 +44,7 @@ class SalarieManager{
 
 		$r->execute();
 		$salarieFetch = $r->fetch(PDO::FETCH_OBJ);
+		$r->closeCursor();
 		return new Salarie($salarieFetch);
 	}
 
@@ -53,5 +56,6 @@ class SalarieManager{
 			PDO::PARAM_INT);
 
     $r->execute();
+		$r->closeCursor();
   }
 }

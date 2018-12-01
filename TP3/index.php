@@ -4,9 +4,6 @@
 	require_once("include/autoLoad.inc.php");
 	require_once("include/header.inc.php");
 
-	// Constantes
-	$VILLE1_VILLE2 = 0;
-
 	// Init manager
 	$db = new Mypdo();
 	$managerVille = new VilleManager($db);
@@ -18,9 +15,7 @@
 	$managerSalarie = new SalarieManager($db);
 	$managerFonction = new FonctionManager($db);
 	$managerPropose = new ProposeManager($db);
-
 	$managerAvis = new AvisManager($db);
-
 ?>
 <div id="corps">
 <?php

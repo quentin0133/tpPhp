@@ -27,9 +27,10 @@ class EtudiantManager{
 		);
 
 		$r->execute();
-		while($etudiant = $tabEtudiant->fetch(PDO::FETCH_OBJ)) {
+		while($etudiant = $r->fetch(PDO::FETCH_OBJ)) {
 			$listeEtudiant[] = new Etudiant($etudiant);
 		}
+		$r->closeCursor();
 		return $listeEtudiant;
 	}
 
@@ -42,6 +43,7 @@ class EtudiantManager{
 
 		$r->execute();
 		$etudiantFetch = $r->fetch(PDO::FETCH_OBJ);
+		$r->closeCursor();
 		return new Etudiant($etudiantFetch);
 	}
 
@@ -53,5 +55,6 @@ class EtudiantManager{
 			PDO::PARAM_INT);
 
     $r->execute();
+		$r->closeCursor();
   }
 }

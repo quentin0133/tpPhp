@@ -16,6 +16,7 @@ class DivisionManager{
 			PDO::PARAM_STR);
 
 		$r->execute();
+		$r->closeCursor();
 	}
 
 	public function getList() {
@@ -28,6 +29,7 @@ class DivisionManager{
 		while($division = $r->fetch(PDO::FETCH_OBJ)) {
 			$listeDivision[] = new Division($division);
 		}
+		$r->closeCursor();
 		return $listeDivision;
 	}
 }

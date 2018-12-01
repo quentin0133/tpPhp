@@ -20,10 +20,11 @@ class PersonneManager{
 			PDO::PARAM_STR);
 		$r->bindValue(':login', $personne->getLogin(),
 			PDO::PARAM_STR);
-		$r->bindValue(':mdp', $personne->getMdp(),
+		$r->bindValue(':mdp', $personne->getMdp().SALT,
 			PDO::PARAM_STR);
 
 		$r->execute();
+		$r->closeCursor();
 	}
 
 	public function getList() {
@@ -36,6 +37,7 @@ class PersonneManager{
 		while($personne = $r->fetch(PDO::FETCH_OBJ)) {
 			$listePersonne[] = new Personne($personne);
 		}
+		$r->closeCursor();
 		return $listePersonne;
 	}
 
@@ -48,6 +50,7 @@ class PersonneManager{
 
 		$r->execute();
 		$personneFetch = $r->fetch(PDO::FETCH_OBJ);
+		$r->closeCursor();
 		return new Personne($personneFetch);
 	}
 
@@ -59,28 +62,30 @@ class PersonneManager{
 			PDO::PARAM_INT);
 
 		$r->execute();
+		$r->closeCursor();
 	}
 
-  public function modifPers($nom,$prenom,$mail,$tel,$login,$pwd,$id){
+  public function modifPers($id, $personne){
     $r = $this->db->prepare(
-        'UPDATE personne SET per_nom = :nom, per_prenom = :prenom, per_mail = :mail,
-				per_tel = :tel, per_login = :login, per_pwd = :pwd WHERE per_num = :id'
+      'UPDATE personne SET per_nom = :nom, per_prenom = :prenom, per_mail = :mail,
+			per_tel = :tel, per_login = :login, per_pwd = :pwd WHERE per_num = :id'
     );
-		$r->bindValue(':nom', $nom,
+		$r->bindValue(':id', $id,
+        PDO::PARAM_INT);
+		$r->bindValue(':nom', $personne->getNom(),
 			PDO::PARAM_STR);
-		$r->bindValue(':prenom', $prenom,
+		$r->bindValue(':prenom', $personne->getPrenom(),
 			PDO::PARAM_STR);
-		$r->bindValue(':mail', $mail,
+		$r->bindValue(':mail', $personne->getMail(),
 			PDO::PARAM_STR);
-		$r->bindValue(':tel', $tel,
+		$r->bindValue(':tel', $personne->getTel(),
 			PDO::PARAM_STR);
-      $r->bindValue(':login', $login,
-          PDO::PARAM_STR);
-      $r->bindValue(':pwd', $pwd,
-          PDO::PARAM_STR);
-      $r->bindValue(':id', $id,
-          PDO::PARAM_INT);
+    $r->bindValue(':login', $personne->getLogin(),
+        PDO::PARAM_STR);
+    $r->bindValue(':pwd', $personne->getMdp().SALT,
+        PDO::PARAM_STR);
 
     $r->execute();
+		$r->closeCursor();
   }
 }

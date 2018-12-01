@@ -16,6 +16,7 @@ class DepartementManager{
 			PDO::PARAM_INT);
 
 		$r->execute();
+		$r->closeCursor();
 	}
 
 	public function getList() {
@@ -28,6 +29,7 @@ class DepartementManager{
 		while($departement = $r->fetch(PDO::FETCH_OBJ)) {
 			$listeDepartement[] = new Departement($departement);
 		}
+		$r->closeCursor();
 		return $listeDepartement;
 	}
 
@@ -40,6 +42,7 @@ class DepartementManager{
 
 		$r->execute();
 		$departementFetch = $r->fetch(PDO::FETCH_OBJ);
+		$r->closeCursor();
 		return new Departement($departementFetch);
 	}
 }

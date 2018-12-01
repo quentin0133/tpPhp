@@ -1,4 +1,9 @@
 <?php
+//Si la personne entre la index?page=10,il revient à l'accueil
+if(!isset($_SESSION['estConnecte'])) {
+  header('Location: index.php?page=0');
+	exit();
+}
 if(!isset($_GET['id'])) {
 ?>
   <h1>Rechercher un trajet</h1>
@@ -14,7 +19,7 @@ if(!isset($_POST['vil_depart']) && !isset($_POST['vil_arrive']) && !isset($_GET[
   <form action="#" method="post" id="proposer_parcours">
     <label>Ville de départ :</label>
       <br>
-    <select title="SelectionnerVillePOurTrajet" class="select" name="vil_depart" onChange='document.getElementById("proposer_parcours").submit()'>
+    <select title="Ville départ" class="select" name="vil_depart" onChange='document.getElementById("proposer_parcours").submit()'>
     <option value=0>
       Choissisez
     </option>
@@ -68,8 +73,7 @@ if(!isset($_POST['vil_depart']) && !isset($_POST['vil_arrive']) && !isset($_GET[
   </form>
 <?php
 }
-else if(empty($_POST['date']) && empty($_POST['precision'])
-&& empty($_POST['temp_depart']) && !isset($_GET['id'])) {
+else if(empty($_POST['date']) && !isset($_GET['id'])) {
   $_SESSION['vil_depart'] = $_POST['vil_depart'];
   $villeDepart = $managerVille->getVille($_SESSION['vil_depart']);
   ?>
@@ -81,7 +85,7 @@ else if(empty($_POST['date']) && empty($_POST['precision'])
         </td>
         <td class="formulaireDroite">
           <label>Ville d'arrivée :</label>
-          <select title="SelectionnerVilleArriveeTrajet" class="select" name="vil_arrive">
+          <select title="Ville d'arrivée" class="select" name="vil_arrive">
           <?php
             $listeParcoursBinomeVille = $managerParcours->getListPairVille($_SESSION['vil_depart']);
             foreach($listeParcoursBinomeVille as $parcours) {
@@ -106,11 +110,12 @@ else if(empty($_POST['date']) && empty($_POST['precision'])
       <tr>
         <td>
           <label>Date de départ : </label>
-          <input title="SaisieDateDepartTrajet" type="date" name="date" value="<?php echo date('Y') ?>-<?php echo date('m') ?>-<?php echo date('d') ?>"/>
+          <input title="SaisieDateDepartTrajet" type="date" name="date"
+          value="<?php echo date('Y') ?>-<?php echo date('m') ?>-<?php echo date('d') ?>" required/>
         </td>
         <td>
           <label>Précision : </label>
-          <select title="SaisieDeLaPrecision" class="select" name="precision">
+          <select title="Précision des trajets des personnes" class="select" name="precision">
             <option value="0">Ce jour</option>
             <option value="1">+/- 1 jour</option>
             <option value="2">+/- 2 jours</option>
@@ -121,7 +126,7 @@ else if(empty($_POST['date']) && empty($_POST['precision'])
       <tr>
         <td>
           <label>A partir de : </label>
-          <select title="SelectionDeLaDate" class="select" name="temp_depart">
+          <select title="Date de référence pour le départ" class="select" name="temp_depart">
             <?php
             for ($cpt = 0; $cpt <= 24; $cpt++) {
             ?>
@@ -220,15 +225,15 @@ else if(!isset($_GET['id'])) {
           if(!empty($listeAvis)) {
           ?>
             <td class="elementTableau2"
-            title="Moyenne des avis : <?php echo $moyenneNote ?> Dernier avis : <?php echo $dernierCommentaire ?>">
-              <a href="index.php?page=10&id=<?php echo $personne->getId() ?>"><?php echo $personne->getPrenom().' '.$personne->getNom(); ?></a>
+            title="Moyenne des avis : <?php echo $moyenneNote ?> Dernier avis : <?php echo $dernierCommentaire; ?>">
+              <a href="index.php?page=10&id=<?php echo $personne->getId(); ?>"><?php echo $personne->getPrenom().' '.$personne->getNom(); ?></a>
             </td>
           <?php
           }
           else {
           ?>
             <td class="elementTableau2" title="Aucun avis n'a été trouvé">
-              <a href="index.php?page=10&id=-1"><?php echo $personne->getPrenom().' '.$personne->getNom(); ?></a>
+              <a href="index.php?page=10&id=<?php echo $personne->getId(); ?>"><?php echo $personne->getPrenom().' '.$personne->getNom(); ?></a>
             </td>
           <?php
           }

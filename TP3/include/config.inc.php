@@ -9,6 +9,7 @@ define('DBPASSWD', "bede");
 define('ENV','dev');
 define('SALT','48@!alsd');
 define('DBPORT',3306);
+define('$VILLE1_VILLE2', 0);
 // pour un environememnt de production remplacer 'dev' (d�veloppement) par 'prod' (production)
 // les messages d'erreur du SGBD s'affichent dans l'environememnt dev mais pas en prod
 ?>
