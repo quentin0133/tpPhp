@@ -33,4 +33,34 @@
 		|| empty($_POST['per_mail']) || empty($_POST['per_login'])  || empty($_POST['per_pwd'])
 		|| empty($_POST['typePersonne']));
 	}
+
+	function estNumeroTel($numTel) {
+		return strlen($numTel) == 10;
+	}
+
+	function estEmail($email) {
+		$listePersonne = $managerPersonne->getList();
+		$estUnique = true;
+		foreach ($listePersonne as $personne) {
+			if($personne->getMail() == $email) {
+				$estUnique = false;
+			}
+		}
+		return filter_var($email, FILTER_VALIDATE_EMAIL) && $estUnique;
+	}
+
+	function estLogin($login) {
+		$listePersonne = $managerPersonne->getList();
+		$estUnique = true;
+		foreach ($listePersonne as $personne) {
+			if($personne->getLogin() == $login) {
+				$estUnique = false;
+			}
+		}
+		return $estUnique;
+	}
+
+	function estMDP($password) {
+		return strlen($password) < 3;
+	}
 ?>
