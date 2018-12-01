@@ -8,7 +8,7 @@
 		<h1>Supprimer une personne</h1>
 		<form action="#" method="post">
 			<label> Sélectionner la personne à supprimer : </label>
-			<select class="select" name="per_num" style="width: 205px;">
+			<select title="SelectDElPersonne" class="select" name="per_num" style="width: 205px;">
 			<?php
 				foreach($listePersonne as $personne) {
 				?>
@@ -19,7 +19,7 @@
 				}
 			?>
       </select>
-			</br>
+			<br>
 			<input type="submit" value="Valider" />
 		</form>
 	<?php

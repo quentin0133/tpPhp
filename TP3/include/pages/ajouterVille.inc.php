@@ -4,7 +4,7 @@
 	?>
 		<form action="#" method="post">
 			<label>Nom : </label>
-			<input type="text" name="vil_nom">
+			<input title="SaisieNomVilleAjouter" type="text" name="vil_nom">
 			<input type="submit" value="Valider" />
 		</form>
 	<?php

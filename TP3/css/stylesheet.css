@@ -292,8 +292,10 @@ table {
 
 #modifSalarie{
 	display: none;
+
 }
 
 #modifEtudiant{
-	display: none;
+	display: block;
 }
+
