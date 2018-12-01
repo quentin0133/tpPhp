@@ -11,7 +11,7 @@
     <form action="#" method="post" id="proposer_parcours">
       <label>Ville de départ :</label>
         <br>
-      <select class="select" name="vil_num1" onChange='document.getElementById("proposer_parcours").submit()'>
+      <select title="SelectionDuTrajetAProposer" class="select" name="vil_num1" onChange='document.getElementById("proposer_parcours").submit()'>
       <option value=0>
         Choissisez
       </option>
@@ -70,7 +70,7 @@
           </td>
           <td class="labelAlign">
             <label>Ville d'arrivée :</label>
-            <select class="select" name="vil_num2">
+            <select title="SelectVilleArrivee" class="select" name="vil_num2">
             <?php
               $listeParcoursBinomeVille = $managerParcours->getListPairVille($_SESSION['vil_num1']);
               foreach($listeParcoursBinomeVille as $parcours) {
@@ -95,18 +95,18 @@
         <tr>
           <td>
             <label>Date de départ : </label>
-            <input type="date" name="pro_date" value="<?php echo date('Y') ?>-<?php echo date('m') ?>-<?php echo date('d') ?>" />
+            <input title="SaisieDateDeDepart" type="date" name="pro_date" value="<?php echo date('Y') ?>-<?php echo date('m') ?>-<?php echo date('d') ?>" />
           </td>
           <td>
             <label>Heure de départ : </label>
-            <input type="time" name="pro_time" value="<?php echo date('H') ?>:<?php echo date('i') ?>:<?php echo date('s') ?>"
+            <input title="SaisieHeureDeDepart" type="time" name="pro_time" value="<?php echo date('H') ?>:<?php echo date('i') ?>:<?php echo date('s') ?>"
             step="any" />
           </td>
         </tr>
         <tr>
           <td>
             <label>Nombre de places : </label>
-            <input type="text" name="pro_place" />
+            <input title="SaisieNombreDePLace" type="text" name="pro_place" />
           </td>
         </tr>
       </table>

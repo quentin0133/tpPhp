@@ -36,13 +36,13 @@
   <input type="hidden" name="nombreCaptcha2" value="<?php echo $nombreCaptcha1 ?>" />
   <input type="hidden" name="nombreCaptcha1" value="<?php echo $nombreCaptcha2 ?>" />
   <label>Nom d'utilisateur:</label>
-  </br>
-  <input type="text" name="login">
-  </br>
+  <br>
+  <input title="ConnexionNomUtilisateur" type="text" name="login">
+    <br>
   <label>Mot de passe:</label>
-  </br>
-  <input type="password" name="mdp">
-  </br>
+    <br>
+  <input title="ConnexionMDP" type="password" name="mdp">
+    <br>
   <label id="captcha">
   <?php
     switch ($nombreCaptcha1) {
@@ -145,8 +145,8 @@
   ?>
   =
   </label>
-  </br>
-  <input type="text" name="captcha">
-  </br>
+    <br>
+  <input title="captcha" type="text" name="captcha">
+    <br>
   <input type="submit" value="Valider">
 </form>

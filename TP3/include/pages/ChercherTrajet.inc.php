@@ -14,7 +14,7 @@ if(!isset($_POST['vil_depart']) && !isset($_POST['vil_arrive']) && !isset($_GET[
   <form action="#" method="post" id="proposer_parcours">
     <label>Ville de départ :</label>
       <br>
-    <select class="select" name="vil_depart" onChange='document.getElementById("proposer_parcours").submit()'>
+    <select title="SelectionnerVillePOurTrajet" class="select" name="vil_depart" onChange='document.getElementById("proposer_parcours").submit()'>
     <option value=0>
       Choissisez
     </option>
@@ -81,7 +81,7 @@ else if(empty($_POST['date']) && empty($_POST['precision'])
         </td>
         <td class="formulaireDroite">
           <label>Ville d'arrivée :</label>
-          <select class="select" name="vil_arrive">
+          <select title="SelectionnerVilleArriveeTrajet" class="select" name="vil_arrive">
           <?php
             $listeParcoursBinomeVille = $managerParcours->getListPairVille($_SESSION['vil_depart']);
             foreach($listeParcoursBinomeVille as $parcours) {
@@ -106,11 +106,11 @@ else if(empty($_POST['date']) && empty($_POST['precision'])
       <tr>
         <td>
           <label>Date de départ : </label>
-          <input type="date" name="date" value="<?php echo date('Y') ?>-<?php echo date('m') ?>-<?php echo date('d') ?>"/>
+          <input title="SaisieDateDepartTrajet" type="date" name="date" value="<?php echo date('Y') ?>-<?php echo date('m') ?>-<?php echo date('d') ?>"/>
         </td>
         <td>
           <label>Précision : </label>
-          <select class="select" name="precision">
+          <select title="SaisieDeLaPrecision" class="select" name="precision">
             <option value="0">Ce jour</option>
             <option value="1">+/- 1 jour</option>
             <option value="2">+/- 2 jours</option>
@@ -121,7 +121,7 @@ else if(empty($_POST['date']) && empty($_POST['precision'])
       <tr>
         <td>
           <label>A partir de : </label>
-          <select class="select" name="temp_depart">
+          <select title="SelectionDeLaDate" class="select" name="temp_depart">
             <?php
             for ($cpt = 0; $cpt <= 24; $cpt++) {
             ?>

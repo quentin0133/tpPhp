@@ -5,7 +5,7 @@ if(empty($_POST['par_km'])) {
 ?>
 	<form action="#" method="post">
 		<label>Ville 1:</label>
-		<select class="select" name="vil_num1">
+		<select title="SelectionVilleDepart" class="select" name="vil_num1">
 		<?php
 			$listeVilles = $managerVille->getList();
 			foreach($listeVilles as $ville) {
@@ -18,7 +18,7 @@ if(empty($_POST['par_km'])) {
 		?>
 		</select>
 		<label>Ville 2:</label>
-		<select class="select" name="vil_num2">
+		<select title="SelectionVilleArrivee" class="select" name="vil_num2">
 		<?php
 			foreach($listeVilles as $ville) {
 			?>
@@ -30,8 +30,8 @@ if(empty($_POST['par_km'])) {
 		?>
 		</select>
 		<label>Nombre de kilomètre(s)</label>
-		<input type="text" name="par_km">
-		</br>
+		<input title="SaisieNombreKm" type="text" name="par_km">
+		<br>
 		<input type="submit" value="Valider" />
 	</form>
 	<?php

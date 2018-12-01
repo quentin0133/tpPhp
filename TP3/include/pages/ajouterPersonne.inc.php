@@ -12,30 +12,30 @@
 			<table>
 				<tr>
 					<td class="labelAlign"> <label>Nom:</label> </td>
-					<td> <input type="text" name="per_nom"> </td>
+					<td> <input title="SaisieNomPersonne" type="text" name="per_nom"> </td>
 					<td class="labelAlign"> <label>Prenom:</label> </td>
-					<td> <input type="text" name="per_prenom"> </td>
+					<td> <input title="SaisiePrenomPersonne" type="text" name="per_prenom"> </td>
 				</tr>
 				<tr>
 					<td class="labelAlign"> <label>Téléphone:</label> </td>
-					<td> <input type="text" name="per_tel"> </td>
+					<td> <input title="SaisieTelPersonne" type="text" name="per_tel"> </td>
 					<td class="labelAlign"> <label>Mail:</label> </td>
-					<td> <input type="text" name="per_mail"> </td>
+					<td> <input title="SaisieMailPerosnne" type="text" name="per_mail"> </td>
 				</tr>
 				<tr>
 					<td class="labelAlign"> <label>Login:</label> </td>
-					<td> <input type="text" name="per_login"> </td>
+					<td> <input title="SaisieLoginPersonne" type="text" name="per_login"> </td>
 					<td class="labelAlign"> <label>Mot de passe:</label> </td>
-					<td> <input type="password" name="per_pwd"> </td>
+					<td> <input title="SaisieMdpPersonne" type="password" name="per_pwd"> </td>
 				</tr>
 				<tr>
 					<td colspan=4>
 						<label>Catégorie:</label>
 
-						<input type="radio" name="typePersonne" value="etudiant" />
+						<input title="RadioEtudiant" type="radio" name="typePersonne" value="etudiant" />
 						<label>Etudiant</label>
 
-						<input type="radio" name="typePersonne" value="personnel" />
+						<input title="RadioPersonnel" type="radio" name="typePersonne" value="personnel" />
 						<label>Personnel</label>
 					</td>
 				<tr>
@@ -68,7 +68,7 @@
 				<h1>Ajouter un étudiant</h1>
 				<form action="#" method="post">
 					<label>Année:</label>
-					<select class="select" name="anneeEtudiant">
+					<select title="SelectionnerAnneeEtudiant" class="select" name="anneeEtudiant">
 					<?php
 						$listeDivisions = $managerDivision->getList();
 						foreach($listeDivisions as $division) {
@@ -82,7 +82,7 @@
 					</select>
 					<br>
 					<label>Département:</label>
-					<select class="select" name="departementEtudiant">
+					<select title="SelectionnerDepartementEtudiant" class="select" name="departementEtudiant">
 					<?php
 						$listeDepartement = $managerDepartement->getList();
 						foreach($listeDepartement as $departement) {
@@ -142,10 +142,10 @@
 				<h1>Ajouter un salarié</h1>
 				<form action="#" method="post">
 					<label>Téléphone professionel:</label>
-					<input type="text" name="telSalarie">
+					<input title="SaisieTelephoneSalarie" type="text" name="telSalarie">
 					<br>
 					<label>Fonction:</label>
-					<select class="select" name="fonctionSalarie">
+					<select title="SelectionnerFondtionSalarie" class="select" name="fonctionSalarie">
 					<?php
 						$listeFonction = $managerFonction->getList();
 						foreach($listeFonction as $fonction) {
