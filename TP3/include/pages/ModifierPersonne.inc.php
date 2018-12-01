@@ -19,7 +19,7 @@ if (empty($_POST['per_nom']) || empty($_POST['per_prenom']) || empty($_POST['per
                     ?>
                     <option value='<?php echo $personne->getId(); ?>'>
 
-                        <?php echo strtoupper($personne->getNom()); ?>  <?php echo $personne->getPrenom(); ?>
+                        <?php echo strtoupper($personne->getNom()).' '.$personne->getPrenom(); ?>
 
 
                     </option>

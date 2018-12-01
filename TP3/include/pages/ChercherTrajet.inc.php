@@ -1,5 +1,9 @@
-<h1>Rechercher un trajet</h1>
 <?php
+if(!isset($_GET['id'])) {
+?>
+  <h1>Rechercher un trajet</h1>
+<?php
+}
 $estDouble = false;
 $listePropose = $managerPropose->getList();
 if(!isset($_POST['vil_depart']) && !isset($_POST['vil_arrive']) && !isset($_GET['id'])) {
@@ -247,6 +251,74 @@ else if(!isset($_GET['id'])) {
   }
 }
 else {
-  echo "salut";
+  $personne = $managerPersonne->getPersonne($_GET['id']);
+  $listeAvis = $managerAvis->getAvis($_GET['id']);
+  ?>
+  <h1>Profile de <?php echo strtoupper($personne->getNom()).' '.$personne->getPrenom(); ?></h1>
+  <?php
+  if(empty($listeAvis)) {
+  ?>
+    <p>
+      <img src="image/erreur.png" />
+      Aucun avis n'a été trouvé.
+    </p>
+  <?php
+  }
+  else {
+  ?>
+    <table  class="collapseTableau">
+      <tr>
+        <th>
+          Nom
+        </th>
+        <th>
+          Prénom
+        </th>
+        <th>
+          Heure de la publication
+        </th>
+        <th>
+          Date publication
+        </th>
+        <th>
+          Commentaire
+        </th>
+        <th>
+          Note
+        </th>
+      </tr>
+    <?php
+      foreach ($listeAvis as $avis) {
+        $personneCommentant = $managerPersonne->getPersonne($avis->getIdPer_per());
+        $dateHeure = explode(' ', $avis->getDate());
+        $date = getFrenchDate($dateHeure[0]);
+        $heure = $dateHeure[1];
+        ?>
+        <tr>
+          <td class="elementTableau2">
+            <?php echo $personneCommentant->getNom(); ?>
+          </td>
+          <td class="elementTableau2">
+            <?php echo $personneCommentant->getPrenom(); ?>
+          </td>
+          <td class="elementTableau">
+            <?php echo $heure; ?>
+          </td>
+          <td class="elementTableau">
+            <?php echo $date; ?>
+          </td>
+          <td class="elementTableau">
+            <?php echo $avis->getComm(); ?>
+          </td>
+          <td class="elementTableau2">
+            <?php echo $avis->getNote().'/5'; ?>
+          </td>
+        </tr>
+      <?php
+      }
+    ?>
+    </table>
+    <?php
+  }
 }
 ?>
