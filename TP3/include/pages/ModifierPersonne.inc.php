@@ -9,10 +9,9 @@ if (empty($_POST['per_nom']) || empty($_POST['per_prenom']) || empty($_POST['per
     ?>
     <form action="#" method="post" id="formulaire_modifier">
 
-        <a> <b> Sélectionner la personne à modifier : </b>
+        <b> Sélectionner la personne à modifier : </b>
             <select title="SelectPersonneModifier" class="select" name="per_num1" style="
-                        width: 205px;
-                        ">
+            width: 205px;">
                 <option value="-1" > Choisissez une personne </option>
                 <?php
                 foreach($listePersonne as $personne) {
@@ -26,7 +25,6 @@ if (empty($_POST['per_nom']) || empty($_POST['per_prenom']) || empty($_POST['per
                 <?php }  ?>
 
             </select>
-        </a>
 
 
         <table>
@@ -44,7 +42,7 @@ if (empty($_POST['per_nom']) || empty($_POST['per_prenom']) || empty($_POST['per
             </tr>
             <tr>
                 <td class="labelAlign"><label>nouveau/ancien Téléphone:</label></td>
-                <td><input title="SaisieNouveauTel" type="text" name="per_tel" "></td>
+                <td><input title="SaisieNouveauTel" type="text" name="per_tel"></td>
                 <td class="labelAlign"><label>nouveau/ancien Mail:</label></td>
                 <td><input title="SaisieNouveauMail" type="text" name="per_mail" ></td>
             </tr>
@@ -73,39 +71,26 @@ if (empty($_POST['per_nom']) || empty($_POST['per_prenom']) || empty($_POST['per
             </tr>
         </table>
 
-
-
-
         <div id="modifSalarie">
-
-            <form action="#" method="post">
-                <label>Téléphone professionel:</label>
-                <input type="text" name="telSalarie">
-                <br>
-                <label>Fonction:</label>
-                <select class="select" name="fonctionSalarie">
-                    <?php
-                    $listeFonction = $managerFonction->getList();
-                    foreach($listeFonction as $fonction) {
-                        ?>
-                        <option value='<?php echo $fonction->getId(); ?>'>
-                            <?php echo $fonction->getLibelle(); ?>
-                        </option>
-                        <?php
-                    }
-                    ?>
-                </select>
-                <br
-            </form>
-
-
+            <label>Téléphone professionel:</label>
+            <input type="text" name="telSalarie">
+            <br>
+            <label>Fonction:</label>
+            <select class="select" name="fonctionSalarie">
+                <?php
+                $listeFonction = $managerFonction->getList();
+                foreach($listeFonction as $fonction) {
+                ?>
+                    <option value='<?php echo $fonction->getId(); ?>'>
+                        <?php echo $fonction->getLibelle(); ?>
+                    </option>
+                <?php
+                }
+                ?>
+            </select>
+            <br>
         </div>
-
-
-
         <div id="modifEtudiant">
-
-            <form action="#" method="post">
                 <label>Année:</label>
                 <select class="select" name="anneeEtudiant">
                     <?php
@@ -118,10 +103,8 @@ if (empty($_POST['per_nom']) || empty($_POST['per_prenom']) || empty($_POST['per
                         <?php
                     }
                     ?>
-
                 </select>
                 <br>
-                <label>Département:</label>
                 <select class="select" name="departementEtudiant">
                     <?php
                     $listeDepartement = $managerDepartement->getList();
@@ -153,19 +136,11 @@ if (empty($_POST['per_nom']) || empty($_POST['per_prenom']) || empty($_POST['per
                     ?>
                 </select>
                 <br>
-            </form>
-
         </div>
-
         <input type="submit" value="Valider" />
     </form>
-
-
-
-
     <?php
 }
-
 
 if (!empty($_POST['per_nom']) && !empty($_POST['per_prenom']) && !empty($_POST['per_tel']) && !empty($_POST['per_num1'])
     && !empty($_POST['per_mail']) && !empty($_POST['per_login'])  && !empty($_POST['per_pwd'])
