@@ -7,33 +7,60 @@ if(empty($_POST['per_nom']) && empty($_SESSION['personne'])) {
 	<form action="#" method="post">
 		<table>
 			<tr>
-				<td class="labelAlign"> <label>Nom:</label> </td>
-				<td> <input type="text" name="per_nom" required> </td>
-				<td class="labelAlign"> <label>Prenom:</label> </td>
-				<td> <input type="text" name="per_prenom" required> </td>
+				<td class="labelAlign">
+					<label>Nom:</label>
+				</td>
+				<td>
+					<input type="text" name="per_nom" required>
+				</td>
+				<td class="labelAlign">
+					<label>Prenom:</label>
+				</td>
+				<td>
+					<input type="text" name="per_prenom" required>
+				</td>
 			</tr>
 			<tr>
-				<td class="labelAlign"> <label>Téléphone:</label> </td>
-				<td> <input type="text" name="per_tel" required> </td>
-				<td class="labelAlign"> <label>Mail:</label> </td>
-				<td> <input type="text" name="per_mail" required> </td>
+				<td class="labelAlign">
+					<label>Téléphone:</label>
+				</td>
+				<td>
+					<input type="text" name="per_tel" required>
+				</td>
+				<td class="labelAlign">
+					<label>Mail:</label>
+				</td>
+				<td>
+					<input type="text" name="per_mail" required>
+				</td>
 			</tr>
 			<tr>
-				<td class="labelAlign"> <label>Login:</label> </td>
-				<td> <input type="text" name="per_login" required> </td>
-				<td class="labelAlign"> <label>Mot de passe:</label> </td>
-				<td> <input type="password" name="per_pwd" required> </td>
+				<td class="labelAlign">
+					<label>Login:</label>
+				</td>
+				<td>
+					<input type="text" name="per_login" required>
+				</td>
+				<td class="labelAlign">
+					<label>Mot de passe:</label>
+				</td>
+				<td>
+					<input type="password" name="per_pwd" required>
+				</td>
 			</tr>
 			<tr>
 				<td colspan=4>
 					<label>Catégorie:</label>
 
-					<input type="radio" name="typePersonne" value="etudiant" required />
+					<input type="radio" name="typePersonne"
+					value="etudiant" required />
 					<label>Etudiant</label>
 
-					<input type="radio" name="typePersonne" value="personnel" required />
+					<input type="radio" name="typePersonne"
+					value="personnel" required />
 					<label>Personnel</label>
 				</td>
+			</tr>
 			<tr>
 				<td colspan=4>
 					<input type="submit" value="Valider" />
