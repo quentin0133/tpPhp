@@ -1,6 +1,6 @@
 <!-- Mettre l'objet personne dans la SESSION -->
 <?php
-	if(isEmptyPersonne() && (!isset($_POST['departementEtudiant'])
+	if(isEmptyPersonne($_POST) && (!isset($_POST['departementEtudiant'])
 	&& !isset($_POST['fonctionSalarie']))) {
 		if(isset($_SESSION['typePersonne'])) {
 			unset($_SESSION['typePersonne']);
