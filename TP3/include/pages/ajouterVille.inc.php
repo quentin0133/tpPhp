@@ -10,13 +10,30 @@
 	<?php
 	}
 	else {
-		$ville = new Ville($_POST);
-		$managerVille->add($ville);
+		$listeVille = $managerVille->getList();
+		$estDouble = false;
+		foreach ($listeVille as $ville) {
+			if(strtolower($ville->getNom()) == strtolower($_POST['vil_nom'])) {
+				$estDouble = true;
+			}
+		}
+		if($estDouble) {
 		?>
-		<p>
-			<img src="image/valid.png" />
-			La ville "<b><?php echo $ville->getNom(); ?></b>" a été ajouté
-		</p>
-	<?php
+			<p>
+				<img src="image/erreur.png" />
+				Cette ville existe déjà !
+			</p>
+		<?php
+		}
+		else {
+			$ville = new Ville($_POST);
+			$managerVille->add($ville);
+			?>
+			<p>
+				<img src="image/valid.png" />
+				La ville "<b><?php echo $ville->getNom(); ?></b>" a été ajouté
+			</p>
+		<?php
+		}
 	}
 ?>

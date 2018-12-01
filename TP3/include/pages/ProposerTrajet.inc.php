@@ -58,8 +58,10 @@
     </form>
   <?php
   }
-  else if(empty($_POST['vil_num2']) && empty($_POST['pro_date']) && empty($_POST['pro_time']) && empty($_POST['pro_place'])) {
-    $_SESSION['vil_num1'] = $_POST['vil_num1'];
+  else if(empty($_POST['pro_date']) || empty($_POST['pro_time']) || empty($_POST['pro_place'])) {
+    if(!isset($_SESSION['vil_num1'])) {
+      $_SESSION['vil_num1'] = $_POST['vil_num1'];
+    }
     $ville1 = $managerVille->getVille($_SESSION['vil_num1']);
     ?>
     <form action="#" method="post">

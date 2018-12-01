@@ -12,7 +12,6 @@ if (empty($_POST['per_nom']) || empty($_POST['per_prenom']) || empty($_POST['per
         <b> Sélectionner la personne à modifier : </b>
             <select title="SelectPersonneModifier" class="select" name="per_num1" style="
             width: 205px;">
-                <option value="-1" > Choisissez une personne </option>
                 <?php
                 foreach($listePersonne as $personne) {
                     ?>
